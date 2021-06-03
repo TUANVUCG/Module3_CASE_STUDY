@@ -1,0 +1,105 @@
+create database class_mng;
+use class_mng;
+
+create table subject
+(
+    subjectId   int primary key AUTO_INCREMENT,
+    subjectName varchar(50) not null
+);
+
+CREATE table teacher
+(
+    teacherId   int PRIMARY KEY AUTO_INCREMENT,
+    name        varchar(50) not null,
+    address     varchar(50) not null,
+    email       varchar(50) not null,
+    phoneNumber varchar(50) not null,
+    dateOfBirth date        not null
+);
+
+create table class
+(
+    classId   int PRIMARY key AUTO_INCREMENT,
+    className varchar(50) not null,
+    teacherId int,
+    CONSTRAINT fk_teacherId FOREIGN KEY (teacherId) REFERENCES teacher (teacherId)
+);
+
+create table student
+(
+    studentId   int PRIMARY KEY AUTO_INCREMENT,
+    name        varchar(50) not null,
+    address     varchar(50) not null,
+    email       varchar(50) not null,
+    phoneNumber varchar(50) not null,
+    dateOfBirth date        not null,
+    classId     int,
+    CONSTRAINT fk_classId FOREIGN KEY (classId) REFERENCES class (classId)
+);
+
+create table marks
+(
+    mark      int,
+    subjectId int,
+    studentId int,
+    CONSTRAINT fk_subId FOREIGN KEY (subjectId) REFERENCES subject (subjectId),
+    CONSTRAINT fk_stuId FOREIGN KEY (studentId) REFERENCES student (studentId),
+    CONSTRAINT pk_sub_stu PRIMARY KEY (subjectId, studentId)
+);
+
+create table user
+(
+    userId   int PRIMARY key AUTO_INCREMENT,
+    userName varchar(50) not null UNIQUE,
+    password varchar(50) not null,
+    role     varchar(50) check (role = 'student' or role = 'teacher' or role = 'admin')
+);
+
+alter table student
+    add column userId int unique,
+    add CONSTRAINT fk_userId foreign key (userId) references user (userId)
+;
+
+alter table teacher
+    add column userId int unique,
+    add CONSTRAINT fk_userId_teacher foreign key (userId) references user (userId)
+;
+
+delimiter //
+create procedure createNewStudent(in name_S varchar(50), address_S varchar(50), email_S varchar(50),
+                                  phoneNumber_S varchar(50), dateOfBirth_S date, classId_S int, userId_S int)
+begin
+insert into student(name, address, email, phoneNumber, dateOfBirth, classId, userId)
+    value (name_S, address_S, email_S, phoneNumber_S, dateOfBirth_S, classId_S, userId_S);
+end //
+delimiter ;
+
+
+delimiter //
+create procedure editStudentById(in S_Id int, in name_S varchar(50), address_S varchar(50), email_S varchar(50),
+                                 phoneNumber_S varchar(50), dateOfBirth_S date, classId_S int, userId_S int)
+begin
+update student
+set name        = name_S,
+    address     = address_S,
+    email       = email_S,
+    phoneNumber = phoneNumber_S,
+    dateOfBirth = dateOfBirth_S,
+    classId     = classId_S,
+    userId      = userId_S
+where studentId = S_Id;
+end //
+delimiter ;
+
+delimiter //
+create procedure removeStudentById(in S_Id int)
+begin
+delete from student
+where studentId = S_Id;
+end //
+delimiter ;
+call removeStudentById(?);
+
+
+
+
