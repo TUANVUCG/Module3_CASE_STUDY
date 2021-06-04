@@ -218,13 +218,14 @@ delimiter ;
 delimiter //
 create procedure createNewTeacher(IN name_T varchar(50), IN address_T varchar(50),
                                   IN email_T varchar(50), IN phoneNumber_T varchar(50),
-                                  IN dateOfBirth_T date)
+                                  IN dateOfBirth_T date, in urlImg varchar(8000))
 begin
-    insert into teacher(name, address, email, phoneNumber, dateOfBirth)
-        value (name_T, address_T, email_T, phoneNumber_T, dateOfBirth_T);
+    insert into teacher(name, address, email, phoneNumber, dateOfBirth,Img)
+        value (name_T, address_T, email_T, phoneNumber_T, dateOfBirth_T,urlImg);
 end//
 delimiter ;
-
+drop procedure createNewTeacher;
+alter table teacher modify column Img varchar(8000);
 # edit teacher by id
 delimiter //
 create procedure editTeacherById(IN id int, IN name_T varchar(50), IN address_T varchar(50),

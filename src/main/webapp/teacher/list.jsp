@@ -13,6 +13,7 @@
         td, th {
             text-align: center;
         }
+
         .main {
             width: 1200px;
             margin: 0 auto;
@@ -53,25 +54,21 @@
             <th>ID</th>
             <th>NAME</th>
             <th>ADDRESS</th>
-            <th>EMAIL</th>
-            <th>PHONE NUMBER</th>
-            <th>DATE OF BIRTH</th>
-
             <c:forEach items="${teachers}" var="teacher">
         <tr>
             <td><c:out value="${teacher.id}"></c:out></td>
             <td><c:out value="${teacher.name}"></c:out></td>
             <td><c:out value="${teacher.address}"></c:out></td>
-            <td><c:out value="${teacher.email}"></c:out></td>
-            <td><c:out value="${teacher.phoneNumber}"></c:out></td>
-            <td><c:out value="${teacher.dateOfBirth}"></c:out></td>
             <td>
-                <button class="editT" name="${teacher.id}" onclick="openFormEdit(this.className,this.name)">EDIT
-                </button>
+                <button>VIEW></button>
             </td>
-            <td>
-                <button><a href="/teachers?action=delete&id=${teacher.id}">DELETE</a></button>
-            </td>
+                <%--            <td>--%>
+                <%--                <button class="editT" name="${teacher.id}" onclick="openFormEdit(this.className,this.name)">EDIT--%>
+                <%--                </button>--%>
+                <%--            </td>--%>
+                <%--            <td>--%>
+                <%--                <button><a href="/teachers?action=delete&id=${teacher.id}">DELETE</a></button>--%>
+                <%--            </td>--%>
         </tr>
         </c:forEach>
     </table>
@@ -80,13 +77,23 @@
             ADD
         </button>
     </a>
-
+    <c:forEach items="${teachers}" var="teacher">
+        <div id="<c:out value="${teacher.id}"></c:out>">
+            <h1><c:out value="${teacher.id}"></c:out></h1>
+            <h1><c:out value="${teacher.name}"></c:out></h1>
+            <h1><c:out value="${teacher.email}"></c:out></h1>
+            <h1><c:out value="${teacher.address}"></c:out></h1>
+            <h1><c:out value="${teacher.phoneNumber}"></c:out></h1>
+            <h1><c:out value="${teacher.dateOfBirth}"></c:out></h1>
+        </div>
+    </c:forEach>
     <form method="post" style="display: none" id="form-create" action="/teachers?action=create">
         <input name="name" type="text" placeholder="Name">
         <input name="address" type="text" placeholder="Address">
         <input name="email" type="email" placeholder="Email">
         <input name="phoneNumber" type="number" placeholder="Phone Number">
         <input name="dateOfBirth" type="text" placeholder="Date Of Birth">
+        <input name="urlImg" type="text" placeholder="IMG">
         <button type="submit">
             ADD
         </button>
@@ -120,6 +127,16 @@
 
     function openFormEdit(classname, name) {
         let status = document.getElementById("form-edit").style.display
+        if (status == "none" && classname == "editT") {
+            document.getElementById("form-edit").style.display = "block"
+            document.getElementById("form-edit").action = "/teachers?action=edit&id=" + name
+        } else {
+            document.getElementById("form-edit").style.display = "none"
+        }
+    }
+
+    function openView(){
+        let status = document.getElementById().style.display
         if (status == "none" && classname == "editT") {
             document.getElementById("form-edit").style.display = "block"
             document.getElementById("form-edit").action = "/teachers?action=edit&id=" + name

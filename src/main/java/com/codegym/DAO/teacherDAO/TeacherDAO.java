@@ -2,16 +2,13 @@ package com.codegym.DAO.teacherDAO;
 
 import com.codegym.DAO.SQLConnection;
 import com.codegym.model.teacher.Teacher;
-
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class TeacherDAO implements ITeacherDAO{
     public static final String SELECT_ALL_TEACHER = "select * from teacher";
-    public static final String CREATE_TEACHER = "call createNewTeacher(?,?,?,?,?)";
+    public static final String CREATE_TEACHER = "call createNewTeacher(?,?,?,?,?,?)";
     public static final String REMOVE_TEACHER = "call removeTeacherById(?)";
     public static final String EDIT_TEACHER = "call editTeacherById(?,?,?,?,?,?)";
     public static final String FIND_TEACHER_BY_NAME = "call findTeacherByName(?)";
@@ -30,8 +27,8 @@ public class TeacherDAO implements ITeacherDAO{
                 String email = resultSet.getString("email");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String dateOfBirth = resultSet.getString("dateOfBirth");
-                String userId = resultSet.getString("userId");
-                teacherList.add(new Teacher(id,name,address,email,phoneNumber,dateOfBirth,userId));
+                String urlImg = resultSet.getString("img");
+                teacherList.add(new Teacher(id,name,address,email,phoneNumber,dateOfBirth,urlImg));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,6 +75,7 @@ public class TeacherDAO implements ITeacherDAO{
             callableStatement.setString(3,teacher.getEmail());
             callableStatement.setString(4,teacher.getPhoneNumber());
             callableStatement.setString(5,teacher.getDateOfBirth());
+            callableStatement.setString(6,teacher.getUrlImg());
             rowInsert = callableStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

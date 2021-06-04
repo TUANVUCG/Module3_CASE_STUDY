@@ -35,17 +35,10 @@ public class TeacherServlet extends HttpServlet {
         teacherService.delete(id);
         response.sendRedirect("/teachers");
     }
-//    private void findTeacherByName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String name = request.getParameter("find");
-//        List<Teacher> teacherList = new ArrayList<>();
-//        teacherList = teacherService.findTeacherByName(name);
-//        request.setAttribute("teachers",teacherList);
-//        response.sendRedirect("/teachers");
-//    }
     private void editTeacher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String quere = request.getParameter("name");
-        if (quere != ""){
+        String query = request.getParameter("name");
+        if (query != ""){
             String name = request.getParameter("name");
             String address = request.getParameter("address");
             String email = request.getParameter("email");
@@ -58,17 +51,15 @@ public class TeacherServlet extends HttpServlet {
 
     }
     private void createTeacher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String quere = request.getParameter("name");
-            if (quere != ""){
                 String name = request.getParameter("name");
                 String address = request.getParameter("address");
                 String email = request.getParameter("email");
                 String phoneNumber = request.getParameter("phoneNumber");
                 String dateOfBirth = request.getParameter("dateOfBirth");
-                Teacher teacher = new Teacher(name,address,email,phoneNumber,dateOfBirth);
+                String urlImg = request.getParameter("urlImg");
+                Teacher teacher = new Teacher(name,address,email,phoneNumber,dateOfBirth,urlImg);
                 teacherService.create(teacher);
                 response.sendRedirect("/teachers");
-            }
     }
 
 
