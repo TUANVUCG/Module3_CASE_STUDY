@@ -98,6 +98,7 @@ delete from student
 where studentId = S_Id;
 end //
 delimiter ;
+
 call removeStudentById(?);
 
 delimiter //
