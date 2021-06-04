@@ -86,17 +86,15 @@ public class StudentServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String dateOfBirth = request.getParameter("dateOfBirth");
         int classId = Integer.parseInt(request.getParameter("classId"));
-        Student student = new Student(id,name, address, email, phoneNumber, dateOfBirth, classId);
+        Student student = new Student(name, address, email, phoneNumber, dateOfBirth, classId);
         studentService.update(id,student);
-        request.setAttribute("student",student);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/student/update.jsp");
-        dispatcher.forward(request,response);
+//        request.setAttribute("student",student);
+        response.sendRedirect("/students");
     }
 
     private void createNewStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String query = request.getParameter("name");
-        if (query != "") {
-            String name = request.getParameter("name");
+        String name = request.getParameter("name");
+        if (name != "") {
             String address = request.getParameter("address");
             String email = request.getParameter("email");
             String phoneNumber = request.getParameter("phoneNumber");
