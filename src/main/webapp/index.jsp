@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>$Title$</title>
+<<<<<<< HEAD
 </head>
 <style>
     .modal {
@@ -327,4 +328,15 @@
         }
     }
 </script>
+=======
+  </head>
+  <body>
+ <a href="/teachers">teacher</a>
+<<<<<<< HEAD
+ <a href="/students">student</a>
+=======
+  <a href="/students">student</a>
+>>>>>>> vu
+  </body>
+>>>>>>> 542728883cecc4e45297719e0fc3587d23b06f10
 </html>
