@@ -1,7 +1,7 @@
 package com.codegym.model.teacher;
 
 public class Teacher {
-    private String id;
+    private int id;
     private String name;
     private String address;
     private String email;
@@ -11,7 +11,7 @@ public class Teacher {
 
 
 
-    public Teacher(String id, String name, String address, String email, String phoneNumber, String dateOfBirth, String userId) {
+    public Teacher(int id, String name, String address, String email, String phoneNumber, String dateOfBirth, String userId) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -25,20 +25,28 @@ public class Teacher {
 
     }
 
-    public Teacher(String name, String address, String email, String phoneNumber, String dateOfBirth, String userId) {
+    public Teacher(String name, String address, String email, String phoneNumber, String dateOfBirth) {
         this.name = name;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
-        this.userId = userId;
     }
 
-    public String getId() {
+    public Teacher(int id, String name, String address, String email, String phoneNumber, String dateOfBirth) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -100,6 +100,13 @@ end //
 delimiter ;
 call removeStudentById(?);
 
-
+delimiter //
+create procedure createNewTeacher(in name_T varchar(50), address_T varchar(50), email_T varchar(50),
+                                  phoneNumber_T varchar(50), dateOfBirth_T date)
+begin
+    insert into teacher(name, address, email, phoneNumber, dateOfBirth)
+        value (name_T, address_T, email_T, phoneNumber_T, dateOfBirth_T);
+end //
+delimiter ;
 
 
