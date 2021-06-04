@@ -22,16 +22,19 @@ public class StudentServlet extends HttpServlet {
             case "delete":
                 deleteStudent(request,response);
                 break;
+            case "view":
+                showFormView(request,response);
+                break;
             default:
                 showStudentList(request, response);
         }
     }
 
-    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/student/update.jsp");
+    private void showFormView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/student/view.jsp");
         dispatcher.forward(request,response);
     }
+
 
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));

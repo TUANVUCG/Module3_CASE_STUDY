@@ -42,6 +42,10 @@
             <td><c:out value="${student.phoneNumber}"/></td>
             <td><c:out value="${student.dOB}"/></td>
             <td>
+                <button type="button" class="btn btn-primary view" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        name="${student.id}" formmethod="get">
+                    <a href="/students?action=view"></a>View
+                </button>
                 <button type="button" class="btn btn-primary editT" data-bs-toggle="modal" data-bs-target="#exampleModal"
                        name="${student.id}" onclick="openFormEdit(this.className,this.name)">
                     Update
@@ -57,10 +61,10 @@
 <form method="post" style="display: none" id="form-edit">
     <input name="name" type="text" placeholder="Name" value="${student.name}">
     <input name="address" type="text" placeholder="Address" value="${student.address}">
-    <input name="email" type="text" placeholder="Email" value="${student.email}">
-    <input name="phoneNumber" type="text" placeholder="Phone Number" value="${student.phoneNumber}">
-    <input name="dateOfBirth" type="text" placeholder="Date Of Birth" value="${student.dOB}">
-    <input name="classId" type="text" placeholder="Class Id" value="${student.classId}">
+    <input name="email" type="email" placeholder="Email" value="${student.email}">
+    <input name="phoneNumber" type="number" placeholder="Phone Number" value="${student.phoneNumber}">
+    <input name="dateOfBirth" type="date" placeholder="Date Of Birth" value="${student.dOB}">
+    <input name="classId" type="number" placeholder="Class Id" value="${student.classId}">
     <button>Update</button>
 </form>
 
@@ -69,9 +73,9 @@
 <form method="post" style="display: none" id="form-create" action="/students?action=create">
     <input name="name" type="text" placeholder="Name">
     <input name="address" type="text" placeholder="Address">
-    <input name="email" type="text" placeholder="Email">
-    <input name="phoneNumber" type="text" placeholder="Phone Number">
-    <input name="dateOfBirth" type="text" placeholder="Date Of Birth">
+    <input name="email" type="email" placeholder="Email">
+    <input name="phoneNumber" type="number" placeholder="Phone Number">
+    <input name="dateOfBirth" type="date" placeholder="Date Of Birth">
     <select name="classId">
         <option selected disabled>ClassId</option>
         <c:forEach items="${studentList}" var="student">
