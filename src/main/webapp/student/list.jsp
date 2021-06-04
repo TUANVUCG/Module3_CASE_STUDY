@@ -13,7 +13,11 @@
 <body>
 <h1>Student List</h1>
 <a href="/students?action=create">Create New Student</a>
-<table  class="table table-striped">
+<form>
+    <input type="text" placeholder="Search" name="search">
+    <button>Search</button>
+</form>
+<table class="table table-striped">
     <tr>
         <th>Id</th>
         <th>Name</th>
@@ -30,10 +34,33 @@
             <td><c:out value="${student.email}"/></td>
             <td><c:out value="${student.phoneNumber}"/></td>
             <td><c:out value="${student.dOB}"/></td>
-            <td><a href="/students?action=update&id=${student.id}">Update</a> </td>
-            <td><a href="/students?action=delete&id=${student.id}">Delete</a> </td>
+            <td><a href="/students?action=update&id=${student.id}">Update</a></td>
+            <td><a href="/students?action=delete&id=${student.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
+<a>
+    <button id="create" name="create" onclick="openFormCreate(this.id)">Create</button>
+</a>
+<form method="post" style="display: none" id="form-create" action="/students?action=create">
+    <input name="name" type="text" placeholder="Name">
+    <input name="address" type="text" placeholder="Address">
+    <input name="email" type="text" placeholder="Email">
+    <input name="phoneNumber" type="text" placeholder="Phone Number">
+    <input name="dateOfBirth" type="text" placeholder="Date Of Birth">
+    <input name="classId" type="number" placeholder="ClassId">
+    <button>Create</button>
+</form>
+<script>
+    function openFormCreate(id){
+        let status = document.getElementById("form-create").style.display;
+        if(status=="none"&&id=="create"){
+            document.getElementById("form-create").style.display="block";
+        }
+        else {
+            document.getElementById("form-create").style.display="none";
+        }
+    }
+</script>
 </body>
 </html>

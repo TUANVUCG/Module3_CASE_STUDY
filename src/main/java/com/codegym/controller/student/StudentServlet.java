@@ -19,12 +19,6 @@ public class StudentServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
-                showCreateForm(request, response);
-                break;
-            case "update":
-                showUpdateForm(request,response);
-                break;
             case "delete":
                 deleteStudent(request,response);
                 break;
@@ -53,8 +47,14 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void showStudentList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String query = request.getParameter("search");
         List<Student> studentList;
-        studentList = studentService.findAll();
+        if(query==null||query.equals("")){
+            studentList = studentService.findAll();
+        }
+        else{
+            studentList = studentService.findStudentByName(query);
+        }
         request.setAttribute("studentList", studentList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/list.jsp");
         dispatcher.forward(request, response);
@@ -94,15 +94,17 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void createNewStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String address = request.getParameter("address");
-        String email = request.getParameter("email");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String dateOfBirth = request.getParameter("dateOfBirth");
-        int classId = Integer.parseInt(request.getParameter("classId"));
-        Student student = new Student(name, address, email, phoneNumber, dateOfBirth, classId);
-        studentService.create(student);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/student/create.jsp");
-        dispatcher.forward(request, response);
+        String query = request.getParameter("name");
+        if (query != "") {
+            String name = request.getParameter("name");
+            String address = request.getParameter("address");
+            String email = request.getParameter("email");
+            String phoneNumber = request.getParameter("phoneNumber");
+            String dateOfBirth = request.getParameter("dateOfBirth");
+            int classId = Integer.parseInt(request.getParameter("classId"));
+            Student student = new Student(name, address, email, phoneNumber, dateOfBirth, classId);
+            studentService.create(student);
+            response.sendRedirect("/students");
+        }
     }
 }

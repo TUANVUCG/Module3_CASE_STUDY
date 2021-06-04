@@ -11,6 +11,7 @@ public class StudentDAO implements IStudentDAO{
     public static final String CREATE_NEW_STUDENT = "call createNewStudent(?,?,?,?,?,?)";
     public static final String DELETE_STUDENT_BY_ID ="call removeStudentById(?)";
     public static final String UPDATE_STUDENT_BY_ID = "call updateStudentById(?,?,?,?,?,?,?)";
+    public static final String FIND_STUDENT_BY_NAME = "call findStudentName(?)";
 
     @Override
     public List<Student> findAll() {
@@ -93,5 +94,31 @@ public class StudentDAO implements IStudentDAO{
             e.printStackTrace();
         }
         return rowDelete!=-0;
+    }
+
+    @Override
+    public List<Student> findStudentByName(String name) {
+        List<Student> studentList = new ArrayList<>();
+        Connection connection = SQLConnection.getConnection();
+        try {
+            CallableStatement callableStatement = connection.prepareCall(FIND_STUDENT_BY_NAME);
+            callableStatement.setString(1,"%"+name+"%");
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()){
+                int id = resultSet.getInt("studentId");
+                String name1 = resultSet.getString("name");
+                String address = resultSet.getString("address");
+                String email = resultSet.getString("email");
+                String phoneNumber = resultSet.getString("phoneNumber");
+                String dOB = resultSet.getString("dateOfBirth");
+                int classId = resultSet.getInt("classId");
+                int userId = resultSet.getInt("userId");
+                Student student = new Student(id,name1,address,email,phoneNumber,dOB,classId,userId);
+                studentList.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return studentList;
     }
 }

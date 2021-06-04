@@ -32,4 +32,9 @@ public class StudentService implements IStudentService{
     public boolean delete(int id) {
         return studentDAO.delete(id);
     }
+
+    @Override
+    public List<Student> findStudentByName(String name) {
+        return studentDAO.findStudentByName(name);
+    }
 }
