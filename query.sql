@@ -205,6 +205,7 @@ end //
 delimiter ;
 
 
+
 # remove teacher by id
 delimiter //
 create procedure removeTeacherById(IN id int)
