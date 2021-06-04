@@ -5,7 +5,10 @@ import com.codegym.model.student.Student;
 import com.codegym.service.IGeneralService;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IStudentDAO extends IGeneralDAO<Student> {
     List<Student> findStudentByName(String name);
+
+    Map<Integer, String> findClass();
 }

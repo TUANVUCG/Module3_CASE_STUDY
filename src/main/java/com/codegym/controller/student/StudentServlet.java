@@ -29,7 +29,7 @@ public class StudentServlet extends HttpServlet {
 
     private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/student/update.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/student/view.jsp");
         dispatcher.forward(request,response);
     }
 
@@ -47,6 +47,7 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void showStudentList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        List<Integer> st
         String query = request.getParameter("search");
         List<Student> studentList;
         if(query==null||query.equals("")){
