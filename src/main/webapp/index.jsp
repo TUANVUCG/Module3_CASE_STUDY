@@ -5,6 +5,10 @@
   </head>
   <body>
  <a href="/teachers">teacher</a>
+<<<<<<< HEAD
  <a href="/students">student</a>
+=======
+  <a href="/students">student</a>
+>>>>>>> vu
   </body>
 </html>
