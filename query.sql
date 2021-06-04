@@ -67,13 +67,12 @@ alter table teacher
 
 delimiter //
 create procedure createNewStudent(in name_S varchar(50), address_S varchar(50), email_S varchar(50),
-                                  phoneNumber_S varchar(50), dateOfBirth_S date, classId_S int, userId_S int)
+                                  phoneNumber_S varchar(50), dateOfBirth_S date, classId_S int)
 begin
-insert into student(name, address, email, phoneNumber, dateOfBirth, classId, userId)
-    value (name_S, address_S, email_S, phoneNumber_S, dateOfBirth_S, classId_S, userId_S);
+insert into student(name, address, email, phoneNumber, dateOfBirth, classId)
+    value (name_S, address_S, email_S, phoneNumber_S, dateOfBirth_S, classId_S);
 end //
 delimiter ;
-
 
 delimiter //
 create procedure editStudentById(in S_Id int, in name_S varchar(50), address_S varchar(50), email_S varchar(50),
@@ -98,7 +97,7 @@ delete from student
 where studentId = S_Id;
 end //
 delimiter ;
-call removeStudentById(?);
+
 
 delimiter //
 create procedure createNewTeacher(in name_T varchar(50), address_T varchar(50), email_T varchar(50),
@@ -108,5 +107,62 @@ begin
         value (name_T, address_T, email_T, phoneNumber_T, dateOfBirth_T);
 end //
 delimiter ;
+
+
+delimiter //
+create procedure createNewStudent(IN name_S varchar(50), IN address_S varchar(50),
+                                  IN email_S varchar(50), IN phoneNumber_S varchar(50),
+                                  IN dateOfBirth_S date, IN classId_S int)
+begin
+    insert into student(name, address, email, phoneNumber, dateOfBirth, classId)
+        value (name_S, address_S, email_S, phoneNumber_S, dateOfBirth_S, classId_S);
+end;
+delimiter ;
+
+# find student
+delimiter //
+create procedure find(IN name_S varchar(50))
+begin
+    select * from student
+    where name like name_S;
+end;
+delimiter ;
+
+# find student by name
+delimiter //
+create procedure findStudentName(IN name_S varchar(50))
+begin
+    select * from student
+    where name like name_S ;
+end;
+delimiter ;
+
+# remove student by name
+delimiter //
+create procedure removeStudentById(IN S_Id int)
+begin
+    delete from student
+    where studentId = S_Id;
+end;
+delimiter ;
+
+# update student by id
+delimiter //
+create procedure updateStudentById(IN S_Id int, IN name_S varchar(50), IN address_S varchar(50),
+                                   IN email_S varchar(50), IN phoneNumber_S varchar(50),
+                                   IN dateOfBirth_S date, IN classId_S int)
+begin
+    update student
+    set name        = name_S,
+        address     = address_S,
+        email       = email_S,
+        phoneNumber = phoneNumber_S,
+        dateOfBirth = dateOfBirth_S,
+        classId     = classId_S
+    where studentId = S_Id;
+end;
+
+delimiter ;
+
 
 

@@ -37,7 +37,7 @@
 <body>
 <div class="main">
     <nav class="navbar navbar-dark bg-primary">
-        <a href="/teachers">Trang chủ</a>
+        <a href="/index.jsp">Trang chủ</a>
         <a href="/teachers">Danh sách giáo viên</a>
         <a href="/students">Danh sách học sinh</a>
         <form class="d-flex">
