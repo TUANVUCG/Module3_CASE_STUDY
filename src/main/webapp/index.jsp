@@ -4,6 +4,7 @@
     <title>$Title$</title>
   </head>
   <body>
- <a href="/teachers">abc</a>
+ <a href="/teachers">teacher</a>
+  <a href="/students">student</a>
   </body>
 </html>
