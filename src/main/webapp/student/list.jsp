@@ -127,7 +127,7 @@
         border: 3px solid yellow;
     }
 
-    #btn-view:hover {
+    #view:hover {
         background-color: greenyellow;
         color: black;
     }
@@ -149,14 +149,15 @@
         box-shadow: 0 4px 8px black;
     }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <body>
 <div class="container">
     <div class="navbar">
         <nav id="navbar-over-logo" class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a href="http://localhost:8080/"><img id="home-page"
-                                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd_3afwgUKrJzrFnkvKrPM_EbJPybl8NxD5vB-LaWjzY9uSefesphz-GBF02V1VQv7A4w&usqp=CAU">
+                                                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd_3afwgUKrJzrFnkvKrPM_EbJPybl8NxD5vB-LaWjzY9uSefesphz-GBF02V1VQv7A4w&usqp=CAU">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -203,30 +204,65 @@
                     <td><c:out value="${student.email}"/></td>
                     <td><c:out value="${student.phoneNumber}"/></td>
                     <td><c:out value="${student.dOB}"/></td>
+                    <div>
+                        <td>
+                            <button id="view" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                <a
+                                ></a>View
+                            </button>
+                        </td>
+                    </div>
                     <td>
-                        <button id="btn-view" style="border: 3px solid black" type="button" class="btn btn-primary view"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                name="${student.id}"  onclick="openFormEdit(this.className,this.name)">
-                            <a href="/students?action=view"></a>View
-                        </button>
-                    </td>
-                    <td>
-                        <button id="submitUpdate" type="button" class="btn btn-primary editT" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
+                        <button id="submitUpdate" type="button" class="btn btn-primary editT"
                                 name="${student.id}" onclick="openFormEdit(this.className,this.name)">
                             Update
                         </button>
                     </td>
                     <td>
                         <button id="delete"><a style="color: white"
-                                               href="/students?action=delete&id=${student.id}">Delete</a>
+                                                    href="/students?action=delete&id=${student.id}">Delete</a>
                         </button>
                     </td>
                 </tr>
             </c:forEach>
         </table>
 
+        <%--        Form view--%>
+        <div class="view-modal">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cho de anh</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped">
+                                <tr>Id</tr>
+                                <tr><c:out value="${student.id}"/>id</tr>
+                                <tr>Name</tr>
+                                <tr><c:out value="${student.name}"/>name</tr>
+                                <tr>Address</tr>
+                                <tr><c:out value="${student.address}"/>address</tr>
+                                <tr>Email</tr>
+                                <tr><c:out value="${student.email}"/>email</tr>
+                                <tr>Phone Number</tr>
+                                <tr><c:out value="${student.phoneNumber}"/>phone</tr>
+                                <tr>Date Of Birth</tr>
+                                <tr><c:out value="${student.dOB}"/>dOB</tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cho dong cua so
+                            </button>
+                            <button type="button" class="btn btn-primary">Cho nay de submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <%--// Form update--%>
         <form method="post" style="display: none" id="form-edit">
@@ -341,12 +377,23 @@
         let status = document.getElementById("classId").value
         document.getElementById("form-edit").action = document.getElementById("form-edit") + "classId=" + status
     }
+</script>
+<script>
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
 
-
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossOrigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+        crossorigin="anonymous"></script>
 </body>
 </html>
