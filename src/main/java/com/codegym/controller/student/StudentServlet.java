@@ -29,17 +29,14 @@ public class StudentServlet extends HttpServlet {
                 showStudentList(request, response);
         }
     }
-
-<<<<<<< HEAD
     private void showFormView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-=======
+
+    }
     private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
->>>>>>> 6bb8eed6a11f1b8212d1feada83371eaeb01a31d
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/view.jsp");
         dispatcher.forward(request,response);
     }
-
 
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -51,11 +48,9 @@ public class StudentServlet extends HttpServlet {
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/create.jsp");
         dispatcher.forward(request, response);
-
     }
 
     private void showStudentList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<Integer> st
         String query = request.getParameter("search");
         List<Student> studentList;
         if(query==null||query.equals("")){
@@ -95,9 +90,11 @@ public class StudentServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String dateOfBirth = request.getParameter("dateOfBirth");
         int classId = Integer.parseInt(request.getParameter("classId"));
-        Student student = new Student(name, address, email, phoneNumber, dateOfBirth, classId);
+        String image = request.getParameter("image");
+        float practice = Float.parseFloat(request.getParameter("practice"));
+        float theory = Float.parseFloat(request.getParameter("theory"));
+        Student student = new Student(name, address, email, phoneNumber, dateOfBirth, classId,image,practice,theory);
         studentService.update(id,student);
-//        request.setAttribute("student",student);
         response.sendRedirect("/students");
     }
 
@@ -109,7 +106,10 @@ public class StudentServlet extends HttpServlet {
             String phoneNumber = request.getParameter("phoneNumber");
             String dateOfBirth = request.getParameter("dateOfBirth");
             int classId = Integer.parseInt(request.getParameter("classId"));
-            Student student = new Student(name, address, email, phoneNumber, dateOfBirth, classId);
+            String image = request.getParameter("image");
+            float practice = Float.parseFloat(request.getParameter("practice"));
+            float theory = Float.parseFloat(request.getParameter("theory"));
+            Student student = new Student(name, address, email, phoneNumber, dateOfBirth, classId,image,practice,theory);
             studentService.create(student);
             response.sendRedirect("/students");
         }

@@ -11,9 +11,9 @@ import java.util.Map;
 
 public class StudentDAO implements IStudentDAO {
     public static final String SELECT_ALL_STUDENT = "select * from student";
-    public static final String CREATE_NEW_STUDENT = "call createNewStudent(?,?,?,?,?,?)";
+    public static final String CREATE_NEW_STUDENT = "call createNewStudent(?,?,?,?,?,?,?,?,?)";
     public static final String DELETE_STUDENT_BY_ID = "call removeStudentById(?)";
-    public static final String UPDATE_STUDENT_BY_ID = "call updateStudentById(?,?,?,?,?,?,?)";
+    public static final String UPDATE_STUDENT_BY_ID = "call updateStudentById(?,?,?,?,?,?,?,?,?,?)";
     public static final String FIND_STUDENT_BY_NAME = "call findStudentName(?)";
     public static final String FIND_LIST_CLASS_ID = "call findClassId";
     public static final String FIND_LIST_CLASS_NAME = "call findClassName";
@@ -31,10 +31,12 @@ public class StudentDAO implements IStudentDAO {
                 String address = resultSet.getString("address");
                 String email = resultSet.getString("email");
                 String phoneNumber = resultSet.getString("phoneNumber");
-                String dOB = resultSet.getString("dateOfBirth");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
                 int classId = resultSet.getInt("classId");
-                int userId = resultSet.getInt("userId");
-                Student student = new Student(id, name, address, email, phoneNumber, dOB, classId, userId);
+                String image = resultSet.getString("image");
+                float practice = resultSet.getFloat("practice");
+                float theory = resultSet.getFloat("theory");
+                Student student = new Student(id,name,address,email,phoneNumber,dateOfBirth,classId,image,practice,theory);
                 studentList.add(student);
             }
         } catch (SQLException e) {
@@ -60,6 +62,9 @@ public class StudentDAO implements IStudentDAO {
             callableStatement.setString(4, student.getPhoneNumber());
             callableStatement.setString(5, student.getdOB());
             callableStatement.setInt(6, student.getClassId());
+            callableStatement.setString(7,student.getImage());
+            callableStatement.setFloat(8,student.getPractice());
+            callableStatement.setFloat(9,student.getTheory());
             rowInserted = callableStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,6 +85,9 @@ public class StudentDAO implements IStudentDAO {
             callableStatement.setString(5, student.getPhoneNumber());
             callableStatement.setString(6, student.getdOB());
             callableStatement.setInt(7, student.getClassId());
+            callableStatement.setString(8,student.getImage());
+            callableStatement.setFloat(9,student.getPractice());
+            callableStatement.setFloat(10,student.getTheory());
             rowUpdate = callableStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,7 +106,7 @@ public class StudentDAO implements IStudentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rowDelete != -0;
+        return rowDelete != 0;
     }
 
     @Override
@@ -115,10 +123,12 @@ public class StudentDAO implements IStudentDAO {
                 String address = resultSet.getString("address");
                 String email = resultSet.getString("email");
                 String phoneNumber = resultSet.getString("phoneNumber");
-                String dOB = resultSet.getString("dateOfBirth");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
                 int classId = resultSet.getInt("classId");
-                int userId = resultSet.getInt("userId");
-                Student student = new Student(id, name1, address, email, phoneNumber, dOB, classId, userId);
+                String image = resultSet.getString("image");
+                float practice = resultSet.getFloat("practice");
+                float theory = resultSet.getFloat("theory");
+                Student student = new Student(name1, address, email, phoneNumber, dateOfBirth, classId,image,practice,theory);
                 studentList.add(student);
             }
         } catch (SQLException e) {

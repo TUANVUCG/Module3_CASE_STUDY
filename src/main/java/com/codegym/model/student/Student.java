@@ -8,12 +8,26 @@ public class Student {
     private String phoneNumber;
     private String dOB;
     private int classId;
-    private int userId;
+    private String image;
+    private float practice;
+    private float theory;
 
     public Student() {
     }
 
-    public Student(int id, String name, String address, String email, String phoneNumber, String dOB, int classId) {
+    public Student(String name, String address, String email, String phoneNumber, String dOB, int classId, String image, float practice, float theory) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dOB = dOB;
+        this.classId = classId;
+        this.image = image;
+        this.practice = practice;
+        this.theory = theory;
+    }
+
+    public Student(int id, String name, String address, String email, String phoneNumber, String dOB, int classId, String image, float practice, float theory) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -21,36 +35,9 @@ public class Student {
         this.phoneNumber = phoneNumber;
         this.dOB = dOB;
         this.classId = classId;
-    }
-
-    public Student(String name, String address, String email, String phoneNumber, String dOB, int classId) {
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.dOB = dOB;
-        this.classId = classId;
-    }
-
-    public Student(String name, String address, String email, String phoneNumber, String dOB, int classId, int userId) {
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.dOB = dOB;
-        this.classId = classId;
-        this.userId = userId;
-    }
-
-    public Student(int id, String name, String address, String email, String phoneNumber, String dOB, int classId, int userId) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.dOB = dOB;
-        this.classId = classId;
-        this.userId = userId;
+        this.image = image;
+        this.practice = practice;
+        this.theory = theory;
     }
 
     public int getId() {
@@ -109,11 +96,27 @@ public class Student {
         this.classId = classId;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getImage() {
+        return image;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public float getPractice() {
+        return practice;
+    }
+
+    public void setPractice(float practice) {
+        this.practice = practice;
+    }
+
+    public float getTheory() {
+        return theory;
+    }
+
+    public void setTheory(float theory) {
+        this.theory = theory;
     }
 }
