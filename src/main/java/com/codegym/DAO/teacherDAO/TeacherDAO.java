@@ -27,7 +27,7 @@ public class TeacherDAO implements ITeacherDAO{
                 String email = resultSet.getString("email");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String dateOfBirth = resultSet.getString("dateOfBirth");
-                String urlImg = resultSet.getString("img");
+                String urlImg = resultSet.getString("Img");
                 teacherList.add(new Teacher(id,name,address,email,phoneNumber,dateOfBirth,urlImg));
             }
         } catch (SQLException e) {
