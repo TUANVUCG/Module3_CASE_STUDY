@@ -128,7 +128,7 @@ public class StudentDAO implements IStudentDAO {
                 String image = resultSet.getString("image");
                 float practice = resultSet.getFloat("practice");
                 float theory = resultSet.getFloat("theory");
-                Student student = new Student(name1, address, email, phoneNumber, dateOfBirth, classId,image,practice,theory);
+                Student student = new Student(id,name1, address, email, phoneNumber, dateOfBirth, classId,image,practice,theory);
                 studentList.add(student);
             }
         } catch (SQLException e) {

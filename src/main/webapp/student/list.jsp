@@ -57,14 +57,25 @@
         padding-bottom: 0;
     }
 
+    #home-page {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+
+    #home-page:hover {
+        border: 3px solid yellow;
+    }
+
     .logo-footer {
         width: 20px;
         height: 20px;
     }
 
     #logo {
-        width: 100px;
-        height: 100px;
+        margin-left: 100px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         border: 3px solid black;
     }
@@ -119,16 +130,34 @@
     #btn-view:hover {
         background-color: greenyellow;
         color: black;
-        /*font-weight: bold;*/
+    }
+
+    .modal-create {
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    .modal-create-content {
+        width: 80%;
+        margin: 10% auto;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 4px 8px black;
     }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <body>
 <div class="container">
     <div class="navbar">
         <nav id="navbar-over-logo" class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/students"><img id="logo"
-                                                              src="https://thue.today/media/images/section/post/thumbnail/1537022290_ky-nang-lam-viec-nhom-hieu-qua.jpg"></a>
+                <a href="http://localhost:8080/"><img id="home-page"
+                                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd_3afwgUKrJzrFnkvKrPM_EbJPybl8NxD5vB-LaWjzY9uSefesphz-GBF02V1VQv7A4w&usqp=CAU">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -149,6 +178,8 @@
                         </li>
                     </ul>
                 </div>
+                <a class="navbar-brand" href="/students"><img id="logo"
+                                                              src="https://thue.today/media/images/section/post/thumbnail/1537022290_ky-nang-lam-viec-nhom-hieu-qua.jpg"></a>
             </div>
         </nav>
     </div>
@@ -176,7 +207,7 @@
                         <button id="btn-view" style="border: 3px solid black" type="button" class="btn btn-primary view"
                                 data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"
-                                name="${student.id}" formmethod="get">
+                                name="${student.id}"  onclick="openFormEdit(this.className,this.name)">
                             <a href="/students?action=view"></a>View
                         </button>
                     </td>
@@ -199,37 +230,61 @@
 
         <%--// Form update--%>
         <form method="post" style="display: none" id="form-edit">
+            <div class="modal-create">
+                <div class="modal-create-content">
+                    <table>
+                        <tr>
+                            <td><input name="name" type="text" placeholder="Name" value="${student.name}"></td>
+                            <td><input name="address" type="text" placeholder="Address" value="${student.address}"></td>
+                            <td><input name="email" type="email" placeholder="Email" value="${student.email}"></td>
+                            <td><input name="phoneNumber" type="number" placeholder="Phone Number"
+                                       value="${student.phoneNumber}"></td>
+                            <td><input name="dateOfBirth" type="date" placeholder="Date Of Birth"
+                                       value="${student.dOB}"></td>
+                        </tr>
+                        <tr>
+                            <td><input name="classId" type="number" placeholder="Class Id" value="${student.classId}">
+                            </td>
+                            <td><input name="image" type="text" placeholder="Image" value="${student.image}"></td>
+                            <td><input name="practice" type="number" placeholder="Practice" value="${student.practice}">
+                            </td>
+                            <td><input name="theory" type="number" placeholder="Theory" value="${student.theory}"></td>
+                            <td>
+                                <button onclick="submitUpdate()">Update</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
-            <input name="name" type="text" placeholder="Name" value="${student.name}">
-            <input name="address" type="text" placeholder="Address" value="${student.address}">
-            <input name="email" type="email" placeholder="Email" value="${student.email}">
-            <input name="phoneNumber" type="number" placeholder="Phone Number" value="${student.phoneNumber}">
-            <input name="dateOfBirth" type="date" placeholder="Date Of Birth" value="${student.dOB}">
-            <input name="classId" type="number" placeholder="Class Id" value="${student.classId}">
-            <input name="image" type="text" placeholder="Image" value="${student.image}">
-            <input name="practice" type="number" placeholder="Practice" value="${student.practice}">
-            <input name="theory" type="number" placeholder="Theory" value="${student.theory}">
-            <button onclick="submitUpdate()">Update</button>
+
         </form>
 
 
         <%--// Form create--%>
         <form method="post" style="display: none" id="form-create" action="/students?action=create">
-            <div class="modal-create-update">
-                <div class="modal-create-update-content">
-
+            <div class="modal-create">
+                <div class="modal-create-content">
+                    <table>
+                        <tr>
+                            <td><input name="name" type="text" placeholder="Name"></td>
+                            <td><input name="address" type="text" placeholder="Address"></td>
+                            <td><input name="email" type="email" placeholder="Email"></td>
+                            <td><input name="phoneNumber" type="number" placeholder="Phone Number"></td>
+                            <td><input name="dateOfBirth" type="date" placeholder="Date Of Birth"></td>
+                        </tr>
+                        <tr>
+                            <td><input name="classId" type="number" placeholder="ClassId"></td>
+                            <td><input name="image" type="text" placeholder="Image"></td>
+                            <td><input name="practice" type="text" placeholder="Practice"></td>
+                            <td><input name="theory" type="text" placeholder="Theory"></td>
+                            <td>
+                                <button class="scu">Create</button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-            <input name="name" type="text" placeholder="Name">
-            <input name="address" type="text" placeholder="Address">
-            <input name="email" type="email" placeholder="Email">
-            <input name="phoneNumber" type="number" placeholder="Phone Number">
-            <input name="dateOfBirth" type="date" placeholder="Date Of Birth">
-            <input name="classId" type="number" placeholder="ClassId">
-            <input name="image" type="text" placeholder="Image">
-            <input name="practice" type="text" placeholder="Practice">
-            <input name="theory" type="text" placeholder="Theory">
-            <button class="scu">Create</button>
         </form>
     </div>
     <div class="footer">
@@ -279,6 +334,7 @@
         } else {
             document.getElementById("form-edit").style.display = "none"
         }
+
     }
 
     function submitUpdate() {
