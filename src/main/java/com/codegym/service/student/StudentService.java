@@ -5,6 +5,7 @@ import com.codegym.DAO.studentDAO.StudentDAO;
 import com.codegym.model.student.Student;
 
 import java.util.List;
+import java.util.Map;
 
 public class StudentService implements IStudentService{
     private IStudentDAO studentDAO = new StudentDAO();
@@ -37,4 +38,10 @@ public class StudentService implements IStudentService{
     public List<Student> findStudentByName(String name) {
         return studentDAO.findStudentByName(name);
     }
+
+    @Override
+    public Map<Integer,String> findClass() {
+        return studentDAO.findClass();
+    }
+
 }

@@ -8,7 +8,7 @@ public class Teacher {
     private String phoneNumber;
     private String dateOfBirth;
     private String userId;
-
+    private String urlImg;
 
 
     public Teacher(int id, String name, String address, String email, String phoneNumber, String dateOfBirth, String userId) {
@@ -21,8 +21,17 @@ public class Teacher {
         this.userId = userId;
     }
 
-    public Teacher(){
+    public Teacher() {
 
+    }
+
+    public Teacher(String name, String address, String email, String phoneNumber, String dateOfBirth, String urlImg) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.urlImg = urlImg;
     }
 
     public Teacher(String name, String address, String email, String phoneNumber, String dateOfBirth) {
@@ -96,5 +105,13 @@ public class Teacher {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
     }
 }

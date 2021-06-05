@@ -218,13 +218,14 @@ delimiter ;
 delimiter //
 create procedure createNewTeacher(IN name_T varchar(50), IN address_T varchar(50),
                                   IN email_T varchar(50), IN phoneNumber_T varchar(50),
-                                  IN dateOfBirth_T date)
+                                  IN dateOfBirth_T date, in urlImg varchar(8000))
 begin
-    insert into teacher(name, address, email, phoneNumber, dateOfBirth)
-        value (name_T, address_T, email_T, phoneNumber_T, dateOfBirth_T);
+    insert into teacher(name, address, email, phoneNumber, dateOfBirth,Img)
+        value (name_T, address_T, email_T, phoneNumber_T, dateOfBirth_T,urlImg);
 end//
 delimiter ;
-
+drop procedure createNewTeacher;
+alter table teacher modify column Img varchar(8000);
 # edit teacher by id
 delimiter //
 create procedure editTeacherById(IN id int, IN name_T varchar(50), IN address_T varchar(50),
@@ -259,3 +260,6 @@ begin
 end //
 delimiter ;
 >>>>>>> 9d0f5bcd4c97e4d15526482a0cc9952ade04c72d
+
+alter table teacher
+alter Img set default 'https://www.google.com.vn/url?sa=i&url=https%3A%2F%2Fwww.yan.vn%2Fdan-mang-du-trend-thiet-ke-avatar-du-kieu-day-mau-sac-tu-anh-mac-dinh-224509.html&psig=AOvVaw1rtTGpWzR79539jj1BhPcp&ust=1622948381307000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNDQ0oDA__ACFQAAAAAdAAAAABAD'
