@@ -254,25 +254,28 @@
                     <table>
                         <tr>
                             <th>Name</th>
-                            <td><input name="name" type="text" placeholder="Name" value="${student.name}"></td>
+                            <td><input name="name" type="text" placeholder="Name" value="${studentUpdate.name}"></td>
                         </tr>
                         <tr>
                             <th>Address</th>
-                            <td><input name="address" type="text" placeholder="Address" value="${student.address}"></td>
+                            <td><input name="address" type="text" placeholder="Address"
+                                       value="${studentUpdate.address}"></td>
                         </tr>
                         <tr>
                             <th>Email</th>
-                            <td><input name="email" type="email" placeholder="Email" value="${student.email}"></td>
+                            <td><input name="email" type="email" placeholder="Email" value="${studentUpdate.email}">
+                            </td>
                         </tr>
                         <tr>
                             <th>Phone Number</th>
                             <td><input name="phoneNumber" type="number" placeholder="Phone Number"
-                                       value="${student.phoneNumber}"></td>
+                                value="${studentUpdate.phoneNumber}">
+                            </td>
                         </tr>
                         <tr>
                             <th>Date Of Birth</th>
                             <td><input name="dateOfBirth" type="date" placeholder="Date Of Birth"
-                                       value="${student.dOB}"></td>
+                                       value="${studentUpdate.dOB}"></td>
                         </tr>
                         <tr>
                             <th>Class Id</th>
@@ -290,17 +293,17 @@
                         </tr>
                         <tr>
                             <th>Image</th>
-                            <td><input name="image" type="text" placeholder="Image" value="${student.image}"></td>
+                            <td><input name="image" type="text" placeholder="Image" value="${studentUpdate.getImage()}"></td>
                         </tr>
                         <tr>
                             <th>Practice</th>
-                            <td><input name="practice" type="number" placeholder="Practice" value="${student.practice}">
+                            <td><input name="practice" type="number" placeholder="Practice" value="${studentUpdate.getPractice()}">
                                 <c:out value="${student.practice}"></c:out>
                             </td>
                         </tr>
                         <tr>
                             <th>Theory</th>
-                            <td><input name="theory" type="number" placeholder="Theory" value="${student.theory}"></td>
+                            <td><input name="theory" type="number" placeholder="Theory" value="${studentUpdate.theory}"></td>
                         </tr>
                         <tr>
                             <td></td>

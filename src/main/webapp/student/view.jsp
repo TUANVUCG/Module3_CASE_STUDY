@@ -187,8 +187,8 @@
                                                     <h6 class="text-muted f-w-400">${requestScope["student"].getdOB()}</h6>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <p class="m-b-10 f-w-600">Class Id</p>
-                                                    <h6 class="text-muted f-w-400">${requestScope["student"].getClassId()}</h6>
+                                                    <p class="m-b-10 f-w-600">Class Name</p>
+                                                    <h6 class="text-muted f-w-400">${requestScope["className"]}</h6>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <p class="m-b-10 f-w-600">Practice</p>

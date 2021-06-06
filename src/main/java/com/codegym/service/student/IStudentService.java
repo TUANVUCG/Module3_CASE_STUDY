@@ -13,4 +13,7 @@ public interface IStudentService extends IGeneralService<Student> {
 
     List<Classes> findClass();
 
+    String findClassName(int classId);
+
+
 }

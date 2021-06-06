@@ -14,4 +14,6 @@ public interface IStudentDAO extends IGeneralDAO<Student> {
     List<Integer> findClassId();
 
     List<Classes> findClass();
+
+    String findClassName(int classId);
 }

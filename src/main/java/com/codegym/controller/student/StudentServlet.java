@@ -31,10 +31,14 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void showFormView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String className = studentService.findClassName(id);
+        request.setAttribute("className",className);
+
         List<Classes> classesList = studentService.findClass();
         request.setAttribute("classesList",classesList);
-        int id = Integer.parseInt(request.getParameter("id"));
         Student student = studentService.findById(id);
+
         request.setAttribute("student",student);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/view.jsp");
         dispatcher.forward(request, response);
@@ -89,11 +93,14 @@ public class StudentServlet extends HttpServlet {
     private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Classes> classesList = studentService.findClass();
         request.setAttribute("classesList",classesList);
+
         int id = Integer.parseInt(request.getParameter("id"));
-        Student student = studentService.findById(id);
+        Student studentUpdate = studentService.findById(id);
+        request.setAttribute("studentUpdate",studentUpdate);
+
         List<Integer> classNameList = studentService.findClassId();
         request.setAttribute("classNameList",classNameList);
-        request.setAttribute("student",student);
+
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String email = request.getParameter("email");

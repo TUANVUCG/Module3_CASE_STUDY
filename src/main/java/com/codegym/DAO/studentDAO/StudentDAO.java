@@ -15,7 +15,7 @@ public class StudentDAO implements IStudentDAO {
     public static final String UPDATE_STUDENT_BY_ID = "call updateStudentById(?,?,?,?,?,?,?,?,?,?)";
     public static final String FIND_STUDENT_BY_NAME = "call findStudentName(?)";
     public static final String FIND_STUDENT_BY_ID ="select * from student where studentId = ?";
-    public static final String FIND_CLASS_NAME = "select className from class";
+    public static final String FIND_CLASS_NAME_BY_CLASS_ID = "select className from class where classId = ?";
     public static final String FIND_CLASS_ID = "select classId from class";
     public static final String FIND_CLASS = "select * from class";
 
@@ -65,15 +65,7 @@ public class StudentDAO implements IStudentDAO {
                 String image = resultSet.getString("image");
                 float practice = resultSet.getFloat("practice");
                 float theory = resultSet.getFloat("theory");
-                student.setName(name);
-                student.setAddress(address);
-                student.setEmail(email);
-                student.setPhoneNumber(phoneNumber);
-                student.setdOB(dateOfBirth);
-                student.setClassId(classId);
-                student.setImage(image);
-                student.setPractice(practice);
-                student.setTheory(theory);
+                student = new Student(name,address,email,phoneNumber,dateOfBirth,classId,image,practice,theory);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -204,11 +196,25 @@ public class StudentDAO implements IStudentDAO {
         return classesList;
     }
 
+    @Override
+    public String findClassName(int classId) {
+        String className = null;
+        Connection connection = SQLConnection.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(FIND_CLASS_NAME_BY_CLASS_ID);
+            ps.setInt(1,classId);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()){
+                className = resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return className;
+    }
+
     public static void main(String[] args) {
         StudentDAO studentDAO = new StudentDAO();
-        List<Classes> classesList = studentDAO.findClass();
-        for(Classes classes : classesList){
-            System.out.println(classes);
-        }
+        System.out.println(studentDAO.findClassName(1));
     }
 }

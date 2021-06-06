@@ -48,4 +48,9 @@ public class StudentService implements IStudentService{
     public List<Classes> findClass() {
         return studentDAO.findClass();
     }
+
+    @Override
+    public String findClassName(int classId) {
+        return studentDAO.findClassName(classId);
+    }
 }
