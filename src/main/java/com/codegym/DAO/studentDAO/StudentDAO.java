@@ -5,9 +5,7 @@ import com.codegym.model.student.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class StudentDAO implements IStudentDAO {
     public static final String SELECT_ALL_STUDENT = "select * from student";
@@ -15,9 +13,9 @@ public class StudentDAO implements IStudentDAO {
     public static final String DELETE_STUDENT_BY_ID = "call removeStudentById(?)";
     public static final String UPDATE_STUDENT_BY_ID = "call updateStudentById(?,?,?,?,?,?,?,?,?,?)";
     public static final String FIND_STUDENT_BY_NAME = "call findStudentName(?)";
-    public static final String FIND_LIST_CLASS_ID = "call findClassId";
-    public static final String FIND_LIST_CLASS_NAME = "call findClassName";
     public static final String FIND_STUDENT_BY_ID ="select * from student where studentId = ?";
+    public static final String FIND_CLASS_NAME = "select className from class";
+    public static final String FIND_CLASS_ID = "select classId from class";
 
     @Override
     public List<Student> findAll() {
@@ -167,20 +165,28 @@ public class StudentDAO implements IStudentDAO {
         return studentList;
     }
 
-    public Map<Integer,String> findClass() {
-        Map<Integer,String> classIdList = new HashMap<>();
+
+    @Override
+    public List<Integer> findClassId(){
+        List<Integer> classNameList = new ArrayList<>();
         Connection connection = SQLConnection.getConnection();
         try {
-            CallableStatement callableStatementId = connection.prepareCall(FIND_LIST_CLASS_ID);
-            ResultSet resultSetId = callableStatementId.executeQuery();
-            CallableStatement callableStatementName = connection.prepareCall(FIND_LIST_CLASS_NAME);
-            ResultSet resultSetName = callableStatementName.executeQuery();
-            while (resultSetId.next()) {
-                classIdList.put(resultSetId.getInt(1),resultSetName.getString(1));
+            PreparedStatement ps = connection.prepareStatement(FIND_CLASS_ID);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()){
+                classNameList.add(Integer.parseInt(resultSet.getString("classId")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return classIdList;
+        return classNameList;
+    }
+
+    public static void main(String[] args) {
+        StudentDAO studentDAO = new StudentDAO();
+        List<Integer> list = studentDAO.findClassId();
+        for(Integer s : list){
+            System.out.println(s);
+        }
     }
 }

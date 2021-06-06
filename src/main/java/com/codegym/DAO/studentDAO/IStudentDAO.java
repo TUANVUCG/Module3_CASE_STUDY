@@ -10,5 +10,5 @@ import java.util.Map;
 public interface IStudentDAO extends IGeneralDAO<Student> {
     List<Student> findStudentByName(String name);
 
-    Map<Integer, String> findClass();
+    List<Integer> findClassId();
 }

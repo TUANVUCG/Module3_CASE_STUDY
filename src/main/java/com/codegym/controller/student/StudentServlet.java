@@ -47,6 +47,8 @@ public class StudentServlet extends HttpServlet {
 
 
     private void showStudentList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Integer> classIdList = studentService.findClassId();
+        request.setAttribute("classIdList",classIdList);
         String query = request.getParameter("search");
         List<Student> studentList;
         if(query==null||query.equals("")){
@@ -55,9 +57,6 @@ public class StudentServlet extends HttpServlet {
         else{
             studentList = studentService.findStudentByName(query);
         }
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        Student student = studentService.findById(id);
-//        request.setAttribute("student",student);
         request.setAttribute("studentList", studentList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/list.jsp");
         dispatcher.forward(request, response);
@@ -85,6 +84,8 @@ public class StudentServlet extends HttpServlet {
     private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Student student = studentService.findById(id);
+        List<Integer> classNameList = studentService.findClassId();
+        request.setAttribute("classNameList",classNameList);
         request.setAttribute("student",student);
         String name = request.getParameter("name");
         String address = request.getParameter("address");
@@ -102,6 +103,8 @@ public class StudentServlet extends HttpServlet {
 
     private void createNewStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
+        List<Integer> classNameList = studentService.findClassId();
+        request.setAttribute("classNameList",classNameList);
         if (name != "") {
             String address = request.getParameter("address");
             String email = request.getParameter("email");

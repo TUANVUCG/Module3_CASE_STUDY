@@ -10,6 +10,7 @@
     a {
         text-decoration: none;
     }
+
     #delete {
         width: 70px;
         height: 40px;
@@ -124,10 +125,11 @@
         border: 3px solid yellow;
     }
 
-    #view{
+    #view {
         background-color: aquamarine;
         color: #ff253a;
     }
+
     #view:hover {
         background-color: greenyellow;
         color: black;
@@ -150,11 +152,14 @@
         box-shadow: 0 4px 8px black;
         border-radius: 20px;
     }
-    #btn-update{
+
+    #btn-update {
         background-color: aquamarine;
         color: black;
         border-radius: 10px;
-    }#btn-update:hover{
+    }
+
+    #btn-update:hover {
         background-color: orange;
         color: black;
         font-weight: bold;
@@ -217,15 +222,13 @@
                     <td><c:out value="${student.email}"/></td>
                     <td><c:out value="${student.phoneNumber}"/></td>
                     <td><c:out value="${student.dOB}"/></td>
-                    <div>
-                        <td>
-                            <button id="view" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                <a href="/students?action=view&id=${student.id}" style="text-decoration: none"
-                                >View</a>
-                            </button>
-                        </td>
-                    </div>
+                    <td>
+                        <button id="view" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                            <a href="/students?action=view&id=${student.id}" style="text-decoration: none"
+                            >View</a>
+                        </button>
+                    </td>
                     <td>
                         <button id="submitUpdate" type="button" class="btn btn-primary editT"
                                 name="${student.id}" onclick="openFormEdit(this.className,this.name)">
@@ -240,44 +243,6 @@
                 </tr>
             </c:forEach>
         </table>
-
-        <%--        Form view--%>
-<%--        <div class="view-modal">--%>
-<%--            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"--%>
-<%--                 aria-hidden="true">--%>
-<%--                <div class="modal-dialog">--%>
-<%--                    <div class="modal-content">--%>
-<%--                        <div class="modal-header">--%>
-<%--                            <h5 class="modal-title" id="exampleModalLabel">${requestScope["student"].getImage()}</h5>--%>
-<%--                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--%>
-<%--                        </div>--%>
-<%--                        <div class="modal-body">--%>
-<%--                            <c:forEach items="${students}" var="student">--%>
-<%--                                <table class="table table-striped">--%>
-<%--                                    <tr>Id</tr>--%>
-<%--                                    <tr>${requestScope["student"].getId()}</tr>--%>
-<%--                                    <tr>Name</tr>--%>
-<%--                                    <tr><c:out value="${student.name}"/>name</tr>--%>
-<%--                                    <tr>Address</tr>--%>
-<%--                                    <tr><c:out value="${student.address}"/>address</tr>--%>
-<%--                                    <tr>Email</tr>--%>
-<%--                                    <tr><c:out value="${student.email}"/>email</tr>--%>
-<%--                                    <tr>Phone Number</tr>--%>
-<%--                                    <tr><c:out value="${student.phoneNumber}"/>phone</tr>--%>
-<%--                                    <tr>Date Of Birth</tr>--%>
-<%--                                    <tr><c:out value="${student.dOB}"/>dOB</tr>--%>
-<%--                                </table>--%>
-<%--                            </c:forEach>--%>
-<%--                        </div>--%>
-<%--                        <div class="modal-footer">--%>
-<%--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cho dong cua so--%>
-<%--                            </button>--%>
-<%--                            <button type="button" class="btn btn-primary">Cho nay de submit</button>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
 
         <%--// Form update--%>
         <form method="post" style="display: none" id="form-edit">
@@ -306,8 +271,19 @@
                             <td><input name="dateOfBirth" type="date" placeholder="Date Of Birth"
                                        value="${student.dOB}"></td>
                         </tr>
-                        <tr><th>ClassId</th>
-                            <td><input name="classId" type="number" placeholder="Class Id" value="${student.classId}">
+                        <tr>
+                            <th>Class Id</th>
+                            <td><input name="classId" type="number" placeholder="Class Id"
+                                       value="${student.classId}"></td>
+                        </tr>
+                        <tr>
+                            <th>Class Id</th>
+                            <td>
+                                <select>
+                                <c:forEach items="${classIdList}" var="classId">
+                                    <option><c:out value="${classId}"></c:out></option>
+                                </c:forEach>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -342,7 +318,7 @@
                     <table>
                         <tr>
                             <th>Name</th>
-                            <td><input name="name" type="text" placeholder="Name" ></td>
+                            <td><input name="name" type="text" placeholder="Name"></td>
                         </tr>
                         <tr>
                             <th>Address</th>
@@ -355,29 +331,40 @@
                         <tr>
                             <th>Phone Number</th>
                             <td><input name="phoneNumber" type="number" placeholder="Phone Number"
-                                       ></td>
+                            ></td>
                         </tr>
                         <tr>
                             <th>Date Of Birth</th>
                             <td><input name="dateOfBirth" type="date" placeholder="Date Of Birth"
-                                      ></td>
+                            ></td>
                         </tr>
-                        <tr><th>ClassId</th>
-                            <td><input name="classId" type="number" placeholder="Class Id" >
+                        <tr>
+                            <th>ClassId</th>
+                            <td><input name="classId" type="number" placeholder="Class Id">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Class Id</th>
+                            <td>
+                                <select>
+                                    <c:forEach items="${classIdList}" var="classId">
+                                        <option><c:out value="${classId}"></c:out></option>
+                                    </c:forEach>
+                                </select>
                             </td>
                         </tr>
                         <tr>
                             <th>Image</th>
-                            <td><input name="image" type="text" placeholder="Image" ></td>
+                            <td><input name="image" type="text" placeholder="Image"></td>
                         </tr>
                         <tr>
                             <th>Practice</th>
-                            <td><input name="practice" type="number" placeholder="Practice" >
+                            <td><input name="practice" type="number" placeholder="Practice">
                             </td>
                         </tr>
                         <tr>
                             <th>Theory</th>
-                            <td><input name="theory" type="number" placeholder="Theory" ></td>
+                            <td><input name="theory" type="number" placeholder="Theory"></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -439,6 +426,7 @@
         }
 
     }
+
     function submitUpdate() {
         let status = document.getElementById("classId").value
         document.getElementById("form-edit").action = document.getElementById("form-edit") + "classId=" + status

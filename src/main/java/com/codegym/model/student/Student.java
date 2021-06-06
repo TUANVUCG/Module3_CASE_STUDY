@@ -119,4 +119,20 @@ public class Student {
     public void setTheory(float theory) {
         this.theory = theory;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", dOB='" + dOB + '\'' +
+                ", classId=" + classId +
+                ", image='" + image + '\'' +
+                ", practice=" + practice +
+                ", theory=" + theory +
+                '}';
+    }
 }

@@ -5,7 +5,6 @@ import com.codegym.DAO.studentDAO.StudentDAO;
 import com.codegym.model.student.Student;
 
 import java.util.List;
-import java.util.Map;
 
 public class StudentService implements IStudentService{
     private IStudentDAO studentDAO = new StudentDAO();
@@ -40,8 +39,7 @@ public class StudentService implements IStudentService{
     }
 
     @Override
-    public Map<Integer,String> findClass() {
-        return studentDAO.findClass();
+    public List<Integer> findClassId() {
+        return studentDAO.findClassId();
     }
-
 }
