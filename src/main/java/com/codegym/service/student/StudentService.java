@@ -2,6 +2,7 @@ package com.codegym.service.student;
 
 import com.codegym.DAO.studentDAO.IStudentDAO;
 import com.codegym.DAO.studentDAO.StudentDAO;
+import com.codegym.model.Classes;
 import com.codegym.model.student.Student;
 
 import java.util.List;
@@ -41,5 +42,10 @@ public class StudentService implements IStudentService{
     @Override
     public List<Integer> findClassId() {
         return studentDAO.findClassId();
+    }
+
+    @Override
+    public List<Classes> findClass() {
+        return studentDAO.findClass();
     }
 }

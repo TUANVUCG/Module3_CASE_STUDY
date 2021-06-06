@@ -1,6 +1,7 @@
 package com.codegym.DAO.studentDAO;
 
 import com.codegym.DAO.SQLConnection;
+import com.codegym.model.Classes;
 import com.codegym.model.student.Student;
 
 import java.sql.*;
@@ -16,6 +17,8 @@ public class StudentDAO implements IStudentDAO {
     public static final String FIND_STUDENT_BY_ID ="select * from student where studentId = ?";
     public static final String FIND_CLASS_NAME = "select className from class";
     public static final String FIND_CLASS_ID = "select classId from class";
+    public static final String FIND_CLASS = "select * from class";
+
 
     @Override
     public List<Student> findAll() {
@@ -182,11 +185,30 @@ public class StudentDAO implements IStudentDAO {
         return classNameList;
     }
 
+    @Override
+    public List<Classes> findClass() {
+        List<Classes> classesList = new ArrayList<>();
+        Connection connection = SQLConnection.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(FIND_CLASS);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()){
+                int classId = resultSet.getInt("classId");
+                String className = resultSet.getString("className");
+                Classes classes = new Classes(classId,className);
+                classesList.add(classes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return classesList;
+    }
+
     public static void main(String[] args) {
         StudentDAO studentDAO = new StudentDAO();
-        List<Integer> list = studentDAO.findClassId();
-        for(Integer s : list){
-            System.out.println(s);
+        List<Classes> classesList = studentDAO.findClass();
+        for(Classes classes : classesList){
+            System.out.println(classes);
         }
     }
 }

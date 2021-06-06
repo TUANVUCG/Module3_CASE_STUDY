@@ -170,6 +170,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <body>
+<c:if test="${message!=null}">
+    <p style="color: red"><c:out value="${message}"></c:out></p>
+</c:if>
 <div class="container">
     <div class="navbar">
         <nav id="navbar-over-logo" class="navbar navbar-expand-lg navbar-light bg-light">
@@ -273,16 +276,15 @@
                         </tr>
                         <tr>
                             <th>Class Id</th>
-                            <td><input name="classId" type="number" placeholder="Class Id"
-                                       value="${student.classId}"></td>
-                        </tr>
-                        <tr>
-                            <th>Class Id</th>
                             <td>
-                                <select>
-                                <c:forEach items="${classIdList}" var="classId">
-                                    <option><c:out value="${classId}"></c:out></option>
-                                </c:forEach>
+                                <select name="classId">
+                                    <c:forEach items="${classesList}" var="classS">
+                                        <option
+                                                value="${classS.classId}"
+                                        >
+                                            <c:out value="${classS.className}"></c:out>
+                                        </option>
+                                    </c:forEach>
                                 </select>
                             </td>
                         </tr>
@@ -293,6 +295,7 @@
                         <tr>
                             <th>Practice</th>
                             <td><input name="practice" type="number" placeholder="Practice" value="${student.practice}">
+                                <c:out value="${student.practice}"></c:out>
                             </td>
                         </tr>
                         <tr>
@@ -309,7 +312,6 @@
                 </div>
             </div>
         </form>
-
 
         <%--// Form create--%>
         <form method="post" style="display: none" id="form-create" action="/students?action=create">
@@ -339,16 +341,15 @@
                             ></td>
                         </tr>
                         <tr>
-                            <th>ClassId</th>
-                            <td><input name="classId" type="number" placeholder="Class Id">
-                            </td>
-                        </tr>
-                        <tr>
                             <th>Class Id</th>
                             <td>
-                                <select>
-                                    <c:forEach items="${classIdList}" var="classId">
-                                        <option><c:out value="${classId}"></c:out></option>
+                                <select name="classId">
+                                    <c:forEach items="${classesList}" var="classS">
+                                        <option
+                                                value="${classS.classId}"
+                                        >
+                                            <c:out value="${classS.className}"></c:out>
+                                        </option>
                                     </c:forEach>
                                 </select>
                             </td>

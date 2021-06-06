@@ -1,4 +1,5 @@
 package com.codegym.controller.student;
+import com.codegym.model.Classes;
 import com.codegym.model.student.Student;
 import com.codegym.service.student.IStudentService;
 import com.codegym.service.student.StudentService;
@@ -30,6 +31,8 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void showFormView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Classes> classesList = studentService.findClass();
+        request.setAttribute("classesList",classesList);
         int id = Integer.parseInt(request.getParameter("id"));
         Student student = studentService.findById(id);
         request.setAttribute("student",student);
@@ -47,6 +50,8 @@ public class StudentServlet extends HttpServlet {
 
 
     private void showStudentList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Classes> classesList = studentService.findClass();
+        request.setAttribute("classesList",classesList);
         List<Integer> classIdList = studentService.findClassId();
         request.setAttribute("classIdList",classIdList);
         String query = request.getParameter("search");
@@ -82,6 +87,8 @@ public class StudentServlet extends HttpServlet {
 
 
     private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Classes> classesList = studentService.findClass();
+        request.setAttribute("classesList",classesList);
         int id = Integer.parseInt(request.getParameter("id"));
         Student student = studentService.findById(id);
         List<Integer> classNameList = studentService.findClassId();
@@ -105,6 +112,8 @@ public class StudentServlet extends HttpServlet {
         String name = request.getParameter("name");
         List<Integer> classNameList = studentService.findClassId();
         request.setAttribute("classNameList",classNameList);
+        List<Classes> classesList = studentService.findClass();
+        request.setAttribute("classesList",classesList);
         if (name != "") {
             String address = request.getParameter("address");
             String email = request.getParameter("email");
