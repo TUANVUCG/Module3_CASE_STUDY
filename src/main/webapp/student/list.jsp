@@ -278,7 +278,7 @@
                                        value="${studentUpdate.dOB}"></td>
                         </tr>
                         <tr>
-                            <th>Class Id</th>
+                            <th>Class Name</th>
                             <td>
                                 <select name="classId">
                                     <c:forEach items="${classesList}" var="classS">
@@ -344,7 +344,7 @@
                             ></td>
                         </tr>
                         <tr>
-                            <th>Class Id</th>
+                            <th>Class Name</th>
                             <td>
                                 <select name="classId">
                                     <c:forEach items="${classesList}" var="classS">

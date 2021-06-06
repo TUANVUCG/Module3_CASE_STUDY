@@ -50,7 +50,7 @@ public class StudentService implements IStudentService{
     }
 
     @Override
-    public String findClassName(int classId) {
-        return studentDAO.findClassName(classId);
+    public String findClassName(int student) {
+        return studentDAO.findClassName(student);
     }
 }

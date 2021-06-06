@@ -18,6 +18,8 @@ public class StudentDAO implements IStudentDAO {
     public static final String FIND_CLASS_NAME_BY_CLASS_ID = "select className from class where classId = ?";
     public static final String FIND_CLASS_ID = "select classId from class";
     public static final String FIND_CLASS = "select * from class";
+    public static final String FIND_CLASS_ID_BY_STUDENT_ID = "select classId from student where studentId = ?";
+
 
 
     @Override
@@ -65,7 +67,7 @@ public class StudentDAO implements IStudentDAO {
                 String image = resultSet.getString("image");
                 float practice = resultSet.getFloat("practice");
                 float theory = resultSet.getFloat("theory");
-                student = new Student(name,address,email,phoneNumber,dateOfBirth,classId,image,practice,theory);
+                student = new Student(id,name,address,email,phoneNumber,dateOfBirth,classId,image,practice,theory);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -197,8 +199,26 @@ public class StudentDAO implements IStudentDAO {
     }
 
     @Override
-    public String findClassName(int classId) {
+    public int findClassIdByStudentId(int studentId) {
+        int classId = -1;
+        Connection connection = SQLConnection.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(FIND_CLASS_ID_BY_STUDENT_ID);
+            ps.setInt(1,studentId);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()){
+                classId = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return classId;
+    }
+
+    @Override
+    public String findClassName(int studentId){
         String className = null;
+        int classId = findClassIdByStudentId(studentId);
         Connection connection = SQLConnection.getConnection();
         try {
             PreparedStatement ps = connection.prepareStatement(FIND_CLASS_NAME_BY_CLASS_ID);
@@ -215,6 +235,6 @@ public class StudentDAO implements IStudentDAO {
 
     public static void main(String[] args) {
         StudentDAO studentDAO = new StudentDAO();
-        System.out.println(studentDAO.findClassName(1));
+        System.out.println(studentDAO.findClassName(4));
     }
 }
