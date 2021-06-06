@@ -24,19 +24,19 @@ public class StudentServlet extends HttpServlet {
                 break;
             case "view":
                 showFormView(request,response);
-                break;
             default:
                 showStudentList(request, response);
         }
     }
-    private void showFormView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
-    private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showFormView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        Student student = studentService.findById(id);
+        request.setAttribute("student",student);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/view.jsp");
-        dispatcher.forward(request,response);
+        dispatcher.forward(request, response);
     }
+
 
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -45,10 +45,6 @@ public class StudentServlet extends HttpServlet {
         response.sendRedirect("/students");
     }
 
-    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/student/create.jsp");
-        dispatcher.forward(request, response);
-    }
 
     private void showStudentList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String query = request.getParameter("search");
@@ -59,6 +55,9 @@ public class StudentServlet extends HttpServlet {
         else{
             studentList = studentService.findStudentByName(query);
         }
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        Student student = studentService.findById(id);
+//        request.setAttribute("student",student);
         request.setAttribute("studentList", studentList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/student/list.jsp");
         dispatcher.forward(request, response);
@@ -82,8 +81,11 @@ public class StudentServlet extends HttpServlet {
         }
     }
 
+
     private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        Student student = studentService.findById(id);
+        request.setAttribute("student",student);
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String email = request.getParameter("email");
@@ -93,8 +95,8 @@ public class StudentServlet extends HttpServlet {
         String image = request.getParameter("image");
         float practice = Float.parseFloat(request.getParameter("practice"));
         float theory = Float.parseFloat(request.getParameter("theory"));
-        Student student = new Student(name, address, email, phoneNumber, dateOfBirth, classId,image,practice,theory);
-        studentService.update(id,student);
+        Student student2 = new Student(name, address, email, phoneNumber, dateOfBirth, classId,image,practice,theory);
+        studentService.update(id,student2);
         response.sendRedirect("/students");
     }
 

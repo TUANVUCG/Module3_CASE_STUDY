@@ -17,6 +17,7 @@ public class StudentDAO implements IStudentDAO {
     public static final String FIND_STUDENT_BY_NAME = "call findStudentName(?)";
     public static final String FIND_LIST_CLASS_ID = "call findClassId";
     public static final String FIND_LIST_CLASS_NAME = "call findClassName";
+    public static final String FIND_STUDENT_BY_ID ="select * from student where studentId = ?";
 
     @Override
     public List<Student> findAll() {
@@ -47,7 +48,36 @@ public class StudentDAO implements IStudentDAO {
 
     @Override
     public Student findById(int id) {
-        return null;
+        Student student = new Student();
+        Connection connection = SQLConnection.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_STUDENT_BY_ID);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String address = resultSet.getString("address");
+                String email = resultSet.getString("email");
+                String phoneNumber = resultSet.getString("phoneNumber");
+                String dateOfBirth = resultSet.getString("dateOfBirth");
+                int classId = resultSet.getInt("classId");
+                String image = resultSet.getString("image");
+                float practice = resultSet.getFloat("practice");
+                float theory = resultSet.getFloat("theory");
+                student.setName(name);
+                student.setAddress(address);
+                student.setEmail(email);
+                student.setPhoneNumber(phoneNumber);
+                student.setdOB(dateOfBirth);
+                student.setClassId(classId);
+                student.setImage(image);
+                student.setPractice(practice);
+                student.setTheory(theory);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return student;
     }
 
     @Override

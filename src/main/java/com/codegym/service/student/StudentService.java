@@ -16,7 +16,7 @@ public class StudentService implements IStudentService{
 
     @Override
     public Student findById(int id) {
-        return null;
+        return studentDAO.findById(id);
     }
 
     @Override

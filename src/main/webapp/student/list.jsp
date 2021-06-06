@@ -6,13 +6,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
-
-
 <style>
     a {
         text-decoration: none;
     }
-
     #delete {
         width: 70px;
         height: 40px;
@@ -106,7 +103,7 @@
 
     .scu:hover {
         background-color: black;
-        border: 3px solid pink;
+        border: 3px solid yellow;
         box-shadow: purple;
         color: white;
         font-weight: bold;
@@ -127,12 +124,16 @@
         border: 3px solid yellow;
     }
 
+    #view{
+        background-color: aquamarine;
+        color: #ff253a;
+    }
     #view:hover {
         background-color: greenyellow;
         color: black;
     }
 
-    .modal-create {
+    .modal-create-update {
         height: 100%;
         width: 100%;
         background: rgba(0, 0, 0, 0.4);
@@ -142,11 +143,23 @@
     }
 
     .modal-create-content {
-        width: 80%;
+        width: 35%;
         margin: 10% auto;
         background: white;
         padding: 20px;
         box-shadow: 0 4px 8px black;
+        border-radius: 20px;
+    }
+    #btn-update{
+        background-color: aquamarine;
+        color: black;
+        border-radius: 10px;
+    }#btn-update:hover{
+        background-color: orange;
+        color: black;
+        font-weight: bold;
+        border-radius: 10px;
+        border: 3px solid black;
     }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -208,8 +221,8 @@
                         <td>
                             <button id="view" type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
-                                <a
-                                ></a>View
+                                <a href="/students?action=view&id=${student.id}" style="text-decoration: none"
+                                >View</a>
                             </button>
                         </td>
                     </div>
@@ -220,8 +233,8 @@
                         </button>
                     </td>
                     <td>
-                        <button id="delete"><a style="color: white"
-                                                    href="/students?action=delete&id=${student.id}">Delete</a>
+                        <button id="delete"><a style="color: white; text-decoration: none"
+                                               href="/students?action=delete&id=${student.id}">Delete</a>
                         </button>
                     </td>
                 </tr>
@@ -229,91 +242,145 @@
         </table>
 
         <%--        Form view--%>
-        <div class="view-modal">
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Cho de anh</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table table-striped">
-                                <tr>Id</tr>
-                                <tr><c:out value="${student.id}"/>id</tr>
-                                <tr>Name</tr>
-                                <tr><c:out value="${student.name}"/>name</tr>
-                                <tr>Address</tr>
-                                <tr><c:out value="${student.address}"/>address</tr>
-                                <tr>Email</tr>
-                                <tr><c:out value="${student.email}"/>email</tr>
-                                <tr>Phone Number</tr>
-                                <tr><c:out value="${student.phoneNumber}"/>phone</tr>
-                                <tr>Date Of Birth</tr>
-                                <tr><c:out value="${student.dOB}"/>dOB</tr>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cho dong cua so
-                            </button>
-                            <button type="button" class="btn btn-primary">Cho nay de submit</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<%--        <div class="view-modal">--%>
+<%--            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"--%>
+<%--                 aria-hidden="true">--%>
+<%--                <div class="modal-dialog">--%>
+<%--                    <div class="modal-content">--%>
+<%--                        <div class="modal-header">--%>
+<%--                            <h5 class="modal-title" id="exampleModalLabel">${requestScope["student"].getImage()}</h5>--%>
+<%--                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--%>
+<%--                        </div>--%>
+<%--                        <div class="modal-body">--%>
+<%--                            <c:forEach items="${students}" var="student">--%>
+<%--                                <table class="table table-striped">--%>
+<%--                                    <tr>Id</tr>--%>
+<%--                                    <tr>${requestScope["student"].getId()}</tr>--%>
+<%--                                    <tr>Name</tr>--%>
+<%--                                    <tr><c:out value="${student.name}"/>name</tr>--%>
+<%--                                    <tr>Address</tr>--%>
+<%--                                    <tr><c:out value="${student.address}"/>address</tr>--%>
+<%--                                    <tr>Email</tr>--%>
+<%--                                    <tr><c:out value="${student.email}"/>email</tr>--%>
+<%--                                    <tr>Phone Number</tr>--%>
+<%--                                    <tr><c:out value="${student.phoneNumber}"/>phone</tr>--%>
+<%--                                    <tr>Date Of Birth</tr>--%>
+<%--                                    <tr><c:out value="${student.dOB}"/>dOB</tr>--%>
+<%--                                </table>--%>
+<%--                            </c:forEach>--%>
+<%--                        </div>--%>
+<%--                        <div class="modal-footer">--%>
+<%--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cho dong cua so--%>
+<%--                            </button>--%>
+<%--                            <button type="button" class="btn btn-primary">Cho nay de submit</button>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
 
         <%--// Form update--%>
         <form method="post" style="display: none" id="form-edit">
-            <div class="modal-create">
+            <div class="modal-create-update">
                 <div class="modal-create-content">
                     <table>
                         <tr>
+                            <th>Name</th>
                             <td><input name="name" type="text" placeholder="Name" value="${student.name}"></td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
                             <td><input name="address" type="text" placeholder="Address" value="${student.address}"></td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
                             <td><input name="email" type="email" placeholder="Email" value="${student.email}"></td>
+                        </tr>
+                        <tr>
+                            <th>Phone Number</th>
                             <td><input name="phoneNumber" type="number" placeholder="Phone Number"
                                        value="${student.phoneNumber}"></td>
+                        </tr>
+                        <tr>
+                            <th>Date Of Birth</th>
                             <td><input name="dateOfBirth" type="date" placeholder="Date Of Birth"
                                        value="${student.dOB}"></td>
                         </tr>
-                        <tr>
+                        <tr><th>ClassId</th>
                             <td><input name="classId" type="number" placeholder="Class Id" value="${student.classId}">
                             </td>
+                        </tr>
+                        <tr>
+                            <th>Image</th>
                             <td><input name="image" type="text" placeholder="Image" value="${student.image}"></td>
+                        </tr>
+                        <tr>
+                            <th>Practice</th>
                             <td><input name="practice" type="number" placeholder="Practice" value="${student.practice}">
                             </td>
+                        </tr>
+                        <tr>
+                            <th>Theory</th>
                             <td><input name="theory" type="number" placeholder="Theory" value="${student.theory}"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
                             <td>
-                                <button onclick="submitUpdate()">Update</button>
+                                <button id="btn-update" onclick="submitUpdate()">Update</button>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
-
-
         </form>
 
 
         <%--// Form create--%>
         <form method="post" style="display: none" id="form-create" action="/students?action=create">
-            <div class="modal-create">
+            <div class="modal-create-update">
                 <div class="modal-create-content">
                     <table>
                         <tr>
-                            <td><input name="name" type="text" placeholder="Name"></td>
-                            <td><input name="address" type="text" placeholder="Address"></td>
-                            <td><input name="email" type="email" placeholder="Email"></td>
-                            <td><input name="phoneNumber" type="number" placeholder="Phone Number"></td>
-                            <td><input name="dateOfBirth" type="date" placeholder="Date Of Birth"></td>
+                            <th>Name</th>
+                            <td><input name="name" type="text" placeholder="Name" ></td>
                         </tr>
                         <tr>
-                            <td><input name="classId" type="number" placeholder="ClassId"></td>
-                            <td><input name="image" type="text" placeholder="Image"></td>
-                            <td><input name="practice" type="text" placeholder="Practice"></td>
-                            <td><input name="theory" type="text" placeholder="Theory"></td>
+                            <th>Address</th>
+                            <td><input name="address" type="text" placeholder="Address"></td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td><input name="email" type="email" placeholder="Email"></td>
+                        </tr>
+                        <tr>
+                            <th>Phone Number</th>
+                            <td><input name="phoneNumber" type="number" placeholder="Phone Number"
+                                       ></td>
+                        </tr>
+                        <tr>
+                            <th>Date Of Birth</th>
+                            <td><input name="dateOfBirth" type="date" placeholder="Date Of Birth"
+                                      ></td>
+                        </tr>
+                        <tr><th>ClassId</th>
+                            <td><input name="classId" type="number" placeholder="Class Id" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Image</th>
+                            <td><input name="image" type="text" placeholder="Image" ></td>
+                        </tr>
+                        <tr>
+                            <th>Practice</th>
+                            <td><input name="practice" type="number" placeholder="Practice" >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Theory</th>
+                            <td><input name="theory" type="number" placeholder="Theory" ></td>
+                        </tr>
+                        <tr>
+                            <td></td>
                             <td>
                                 <button class="scu">Create</button>
                             </td>
@@ -372,7 +439,6 @@
         }
 
     }
-
     function submitUpdate() {
         let status = document.getElementById("classId").value
         document.getElementById("form-edit").action = document.getElementById("form-edit") + "classId=" + status

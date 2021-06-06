@@ -189,8 +189,6 @@ begin
 end;
 delimiter ;
 
-=======
->>>>>>> 9d0f5bcd4c97e4d15526482a0cc9952ade04c72d
 # update student by id
 delimiter //
 create procedure updateStudentById(IN S_Id int, IN name_S varchar(50), IN address_S varchar(50),
@@ -209,10 +207,8 @@ end;
 
 delimiter ;
 
-<<<<<<< HEAD
 
 
-=======
 # TEACHER
 # create new teacher
 delimiter //
@@ -259,7 +255,6 @@ begin
     delete from teacher where teacherId = id;
 end //
 delimiter ;
->>>>>>> 9d0f5bcd4c97e4d15526482a0cc9952ade04c72d
 
 alter table teacher
 alter Img set default 'https://www.google.com.vn/url?sa=i&url=https%3A%2F%2Fwww.yan.vn%2Fdan-mang-du-trend-thiet-ke-avatar-du-kieu-day-mau-sac-tu-anh-mac-dinh-224509.html&psig=AOvVaw1rtTGpWzR79539jj1BhPcp&ust=1622948381307000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNDQ0oDA__ACFQAAAAAdAAAAABAD'
