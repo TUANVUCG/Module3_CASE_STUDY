@@ -99,10 +99,7 @@ begin
 end //
 delimiter ;
 
-<<<<<<< HEAD
-=======
 call removeStudentById(?);
->>>>>>> 9d0f5bcd4c97e4d15526482a0cc9952ade04c72d
 
 delimiter //
 create procedure createNewTeacher(in name_T varchar(50), address_T varchar(50), email_T varchar(50),
@@ -155,7 +152,6 @@ begin
 end;
 delimiter ;
 
-<<<<<<< HEAD
 delimiter //
 create procedure createNewStudent(IN name_S varchar(50), IN address_S varchar(50),
                                   IN email_S varchar(50), IN phoneNumber_S varchar(50),
@@ -281,3 +277,6 @@ begin
         value(N_userName,N_password,N_role,N_email,N_phoneNumber);
 end //
 delimiter ;
+
+use class_mng;
+
