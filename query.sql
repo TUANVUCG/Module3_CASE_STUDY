@@ -265,13 +265,13 @@ begin
 end //
 delimiter ;
 
-alter table teacher
-    alter Img set default 'https://www.google.com.vn/url?sa=i&url=https%3A%2F%2Fwww.yan.vn%2Fdan-mang-du-trend-thiet-ke-avatar-du-kieu-day-mau-sac-tu-anh-mac-dinh-224509.html&psig=AOvVaw1rtTGpWzR79539jj1BhPcp&ust=1622948381307000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNDQ0oDA__ACFQAAAAAdAAAAABAD';
+
+use class_mng;
+
+# Fix 7/6/2021
 
 alter table user
     add column phoneNumber varchar(100) unique;
-
-use class_mng;
 
 delimiter //
 create procedure createUser(in N_userName varchar(50), N_password varchar(50), N_role varchar(50), N_email varchar(50),
@@ -280,4 +280,30 @@ begin
     insert into user(userName, password, role, email, phoneNumber)
         value(N_userName,N_password,N_role,N_email,N_phoneNumber);
 end //
+delimiter ;
+
+delimiter //
+create procedure editUser(in N_userName varchar(50), N_email varchar(50),N_phoneNumber varchar(50), N_password varchar(50))
+begin
+    update user
+        set password = N_password
+    where userName = N_userName and email = N_email and phoneNumber = N_phoneNumber;
+end //
+delimiter ;
+
+delimiter //
+create procedure editTeacherById(IN id int, IN name_T varchar(50), IN address_T varchar(50),
+                                                       IN email_T varchar(50), IN phoneNumber_T varchar(50),
+                                                       IN dateOfBirth_T varchar(50), IN urlImg varchar(8000))
+begin
+    update teacher
+    set name = name_T,
+        address= address_T,
+        email = email_T,
+        phoneNumber = phoneNumber_T,
+        dateOfBirth = dateOfBirth_T,
+        Img = urlImg
+    where id = teacherId;
+
+end//
 delimiter ;

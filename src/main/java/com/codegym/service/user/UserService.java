@@ -18,4 +18,7 @@ public class UserService implements IUserService{
     public boolean create(User user) {
         return userDao.createUser(user);
     }
+    public boolean edit(User user){
+        return userDao.editUser(user);
+    }
 }

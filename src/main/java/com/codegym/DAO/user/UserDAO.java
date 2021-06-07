@@ -11,6 +11,7 @@ import java.util.List;
 public class UserDAO implements IUserDao {
     public static final String SELECT_ACCOUNT = "select userName,password,role,email,phoneNumber from user";
     public static final String CREATE_USER = "call createUser(?,?,?,?,?)";
+    public static final String EDIT_USER = "call editUser(?,?,?,?)";
 
     @Override
     public List<User> findUser() {
@@ -44,6 +45,24 @@ public class UserDAO implements IUserDao {
             callableStatement.setString(3, user.getRole());
             callableStatement.setString(4, user.getEmail());
             callableStatement.setString(5,user.getPhoneNumber());
+
+            rowInsert = callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowInsert != 0;
+    }
+
+    @Override
+    public boolean editUser(User user) {
+        Connection connection = SQLConnection.getConnection();
+        int rowInsert = 0;
+        try {
+            CallableStatement callableStatement = connection.prepareCall(EDIT_USER);
+            callableStatement.setString(1,user.getUserName());
+            callableStatement.setString(2, user.getEmail());
+            callableStatement.setString(3,user.getPhoneNumber());
+            callableStatement.setString(4,user.getPassword());
             rowInsert = callableStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

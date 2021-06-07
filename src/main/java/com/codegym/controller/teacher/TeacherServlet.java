@@ -39,17 +39,28 @@ public class TeacherServlet extends HttpServlet {
 
     private void editTeacher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String query = request.getParameter("name");
-        if (query != "") {
             String name = request.getParameter("name");
             String address = request.getParameter("address");
             String email = request.getParameter("email");
             String phoneNumber = request.getParameter("phoneNumber");
             String dateOfBirth = request.getParameter("dateOfBirth");
-            Teacher teacher = new Teacher(name, address, email, phoneNumber, dateOfBirth);
-            teacherService.update(id, teacher);
-            response.sendRedirect("/teachers");
-        }
+            String urlImg = request.getParameter("urlImg");
+            if (!name.equals("") && !address.equals("") && !email.equals("")){
+                Teacher teacher = new Teacher(name, address, email, phoneNumber, dateOfBirth,urlImg);
+                teacherService.update(id, teacher);
+                response.sendRedirect("/teachers");
+            } else {
+                request.setAttribute("display-edit","block");
+                request.setAttribute("message","can't be empty");
+                request.setAttribute("name",name);
+                request.setAttribute("address",address);
+                request.setAttribute("email",email);
+                request.setAttribute("phone",phoneNumber);
+                request.setAttribute("date",dateOfBirth);
+                request.setAttribute("img",urlImg);
+                showListTeacher(request,response);
+            }
+
 
     }
 
@@ -60,9 +71,17 @@ public class TeacherServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         String dateOfBirth = request.getParameter("dateOfBirth");
         String urlImg = request.getParameter("urlImg");
-        Teacher teacher = new Teacher(name, address, email, phoneNumber, dateOfBirth, urlImg);
-        teacherService.create(teacher);
-        response.sendRedirect("/teachers");
+        if (!name.equals("") && !address.equals("") && !email.equals("")){
+            Teacher teacher = new Teacher(name, address, email, phoneNumber, dateOfBirth, urlImg);
+            teacherService.create(teacher);
+            response.sendRedirect("/teachers");
+        } else {
+            request.setAttribute("display","block");
+            request.setAttribute("message","can't be empty");
+
+            showListTeacher(request,response);
+        }
+
     }
 
 

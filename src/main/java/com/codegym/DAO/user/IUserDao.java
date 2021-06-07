@@ -8,4 +8,5 @@ import java.util.List;
 public interface IUserDao {
     List<User> findUser();
     boolean createUser(User user);
+    boolean editUser(User user);
 }

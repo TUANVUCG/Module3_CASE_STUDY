@@ -180,12 +180,11 @@
         width: 200px;
     }
 
-    .message-err {
-        color: red;
-    }
+
     #register {
         display: none;
     }
+
     @keyframes growth {
         from {
             transform: scale(var(--growth-from));
@@ -194,15 +193,17 @@
             transform: scale(var(--growth-to));
         }
     }
+    #change-password {
+        margin-top: 13vh;
+    }
 </style>
 <body onload="loginErr('${form}')"
       style="background-image: url('https://images.pexels.com/photos/583846/pexels-photo-583846.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');background-size: cover">
 <div class="main">
     <div id="btn-login" class="animate__animated animate__backInDown">
-        <button id="registration" onclick="openForm(this.id)" class="button button-form-login">Đăng
-            kí
+        <button id="registration" onclick="openForm(this.id)" class="button button-form-login">Sign up
         </button>
-        <button id="login" onclick="openForm(this.id)" class="button button-form-login"> Đăng nhập
+        <button id="login" onclick="openForm(this.id)" class="button button-form-login"> Log in
         </button>
     </div>
     <div style="display: none" class="modal" id="modal">
@@ -214,45 +215,48 @@
 
             <!-- Register -->
 
-                <div class="auth__form" id="register" >
-                    <form method="post" action="users?action=registration" id="form-registration">
+            <div class="auth__form" id="register">
+                <form method="post" action="users?action=registration" id="form-registration">
                     <div class="auth__form__header">
 
-                        <h3 class="auth__form__heading">Đăng kí</h3>
-                        <span class="auth__form__switch-btn" onclick="switchForm('login')">Đăng nhập</span>
+                        <h3 class="auth__form__heading">Sign in</h3>
+                        <span class="auth__form__switch-btn" onclick="switchForm('login')">Login</span>
 
                     </div>
 
                     <div class="auth__form-group">
 
-                        <input name="account" type="text" placeholder="Tài khoản của bạn" class="auth__form-input">
+                        <input name="account" value="${account}" type="text" placeholder="Account"
+                               class="auth__form-input">
                         <span class="message-err"><c:out value="${message3}"></c:out></span>
                     </div>
 
                     <div class="auth__form-group">
 
-                        <input name="password" type="password" placeholder="Mật khẩu của bạn" class="auth__form-input">
+                        <input name="password" value="${password}" type="password" placeholder="Password"
+                               class="auth__form-input">
                     </div>
 
                     <div class="auth__form-group">
 
-                        <input name="re-password" type="password" placeholder="Nhập lại mật khẩu"
+                        <input name="re-password" value="${rePassword}" type="password" placeholder="Repeat password"
                                class="auth__form-input">
                         <span class="message-err"><c:out value="${message4}"></c:out></span>
                     </div>
                     <div class="auth__form-group">
 
-                        <input name="email" type="email" placeholder="Email" class="auth__form-input">
+                        <input name="email" value="${email}" type="email" placeholder="Email" class="auth__form-input">
                         <span class="message-err"><c:out value="${message5}"></c:out></span>
                     </div>
                     <div class="auth__form-group">
 
-                        <input name="phone" type="number" placeholder="Phone Number" class="auth__form-input">
+                        <input name="phone" value="${phoneNumber}" type="number" placeholder="Phone Number"
+                               class="auth__form-input">
                         <span class="message-err"><c:out value="${message6}"></c:out></span>
                     </div>
                     <div class="auth__form-group"
                          style="margin-top: 20px;display: flex;align-items: center;justify-content: space-between">
-                        <h2 style="margin:0; display: inline-block;color: black;font-weight: 400">Bạn là ?</h2>
+                        <h2 style="margin:0; display: inline-block;color: black;font-weight: 400">Role</h2>
                         <div style="display: flex;align-items: center">
                             <input name="role" type="radio" value="teacher" id="role-teacher"
                                    style="width: 20px;height: 20px">
@@ -270,18 +274,18 @@
                     <div class="auth__form-policy">
 
                         <p class="auth__form-policy-text">
-                            Bằng việc đăng kí, bạn đã đồng ý với Việt Nam Tour về
-                            <a href="#" class="auth__form-policy-text--primary">Điều khoản dịch vụ</a> &
-                            <a href="#" class="auth__form-policy-text--primary">Chính sách bảo mật</a>
+                            By registering, you agree to us about
+                            <a href="#" class="auth__form-policy-text--primary">Terms of Service</a> &
+                            <a href="#" class="auth__form-policy-text--primary">Privacy Policy</a>
                         </p>
 
                     </div>
                     <div class="auth__form-controls" style="margin-top: 20px">
 
                     <span class="button auth__form-btn auth__form-btn--hover" type="button"
-                          onclick="closeForm('modal')">TRỞ LẠI
+                          onclick="closeForm('modal')">BACK
                     </span>
-                        <button class="button btn--primary auth__form-btn">ĐĂNG KÍ</button>
+                        <button class="button auth__form-btn" style="color: rgb(255,165,0)">SIGN IN</button>
 
                     </div>
 
@@ -299,8 +303,8 @@
                         </a>
 
                     </div>
-                    </form>
-                </div>
+                </form>
+            </div>
 
 
             <div class="auth__form" id="logins" style="display: none">
@@ -308,41 +312,40 @@
                 <form method="post" action="users?action=login" id="form-login">
                     <div class="auth__form__header">
 
-                        <h3 class="auth__form__heading">Đăng nhập</h3>
+                        <h3 class="auth__form__heading">Login</h3>
                         <span id="switchRegister" class="auth__form__switch-btn"
-                              onclick="switchForm(this.id)">Đăng Kí</span>
+                              onclick="switchForm(this.id)">Sign in</span>
 
                     </div>
 
                     <div class="auth__form-group">
 
-                        <input type="text" name="account" placeholder="Email của bạn" class="auth__form-input">
+                        <input type="text" name="account" placeholder="Account" class="auth__form-input">
                         <span class="message-err" id="account-err">${message}</span>
                     </div>
 
                     <div class="auth__form-group">
 
-                        <input type="password" name="password" placeholder="Mật khẩu của bạn" class="auth__form-input">
+                        <input type="password" name="password" placeholder="Password" class="auth__form-input">
                         <span class="message-err" id="password-err">${message2}</span>
                     </div>
 
                     <div class="auth__form-help">
 
-                        <a href=https://www.facebook.com/messages/t/100006586149194"
-                           class="auth__form-help-link auth__form-help-link--separate">
-                            Quên mật khẩu
-                        </a>
+                        <button style="border: none; background-color: white" type="button" onclick="openForm('change-password')" class="auth__form-help-link">
+                            Forgot password
+                        </button>
 
                         <a href="https://www.facebook.com/messages/t/100006586149194" class="auth__form-help-link">
-                            Cần trợ giúp?
+                            Need help?
                         </a>
 
                     </div>
 
                     <div class="auth__form-controls">
                     <span class="button auth__form-btn auth__form-btn--hover"
-                          onclick="closeForm('modal')">TRỞ LẠI</span>
-                        <button class="button btn--primary auth__form-btn" type="submit">ĐĂNG NHẬP</button>
+                          onclick="closeForm('modal')">BACK</span>
+                        <button style="color: rgb(255,165,0)" class="button auth__form-btn" type="submit">LOGIN</button>
                     </div>
 
                     <div class="auth__form-socials">
@@ -355,6 +358,32 @@
                             <i class="fab fa-google"></i>
                             <span>Google</span>
                         </a>
+                    </div>
+                </form>
+            </div>
+
+            <div style="display: none" class="auth__form" id="change-password">
+                <form style="padding: 30px 0" method="post" action="users?action=change-password" id="form-change-password">
+                    <h1 style="color:rgb(255,165,0);">CHANGE PASSWORD</h1>
+                    <div class="auth__form-group">
+                        <input name="account" type="text" placeholder="Account" class="auth__form-input">
+                    </div>
+
+                    <div class="auth__form-group">
+                        <input name="email" type="email" placeholder="Email" class="auth__form-input">
+                    </div>
+                    <div class="auth__form-group">
+                        <input name="phone" type="number" placeholder="Phone Number" class="auth__form-input">
+                    </div>
+                    <div class="auth__form-group">
+                        <input name="password" type="password" placeholder="New password" class="auth__form-input">
+                    </div>
+                    <h1><c:out value="${messageChangePassword}"></c:out></h1>
+                    <div style="margin: 30px 0">
+                        <button class="button auth__form-btn auth__form-btn--hover" type="button"
+                                onclick="closeForm('modal')">BACK
+                        </button>
+                        <button class="button auth__form-btn" style="color: rgb(255,165,0)">CONFIRM</button>
                     </div>
                 </form>
             </div>
@@ -375,6 +404,10 @@
             document.getElementById("modal").style.display = "block"
             document.getElementById("logins").style.display = "block"
             document.getElementById("btn-login").style.display = "none"
+        } else if (id == "change-password") {
+            document.getElementById("modal").style.display = "block"
+            document.getElementById("change-password").style.display = "block"
+            document.getElementById("logins").style.display = "none"
         } else {
             document.getElementById("modal").style.display = "none"
             document.getElementById("logins").style.display = "none"
@@ -389,6 +422,7 @@
             document.getElementById(id).style.display = "none"
             document.getElementById("logins").style.display = "none"
             document.getElementById("register").style.display = "none"
+            document.getElementById("change-password").style.display = "none"
             document.getElementById("btn-login").style.display = "block"
         }
 
@@ -398,6 +432,7 @@
         if (id == "switchRegister") {
             document.getElementById("register").style.display = "block"
             document.getElementById("logins").style.display = "none"
+            document.getElementById("change-password").style.display = "none"
         } else {
             document.getElementById("register").style.display = "none"
             document.getElementById("logins").style.display = "block"
@@ -405,19 +440,16 @@
     }
 
     function loginErr(form) {
-        if (form == "logins"){
+        if (form == "logins") {
             document.getElementById("modal").style.display = "block"
             document.getElementById("logins").style.display = "block"
-        } else if(form == "register"){
+        } else if (form == "register") {
             document.getElementById("modal").style.display = "block"
             document.getElementById("register").style.display = "block"
+        } else if (form == "change-password") {
+            document.getElementById("modal").style.display = "block"
+            document.getElementById("change-password").style.display = "block"
         }
-        // document.getElementById("modal").style.display = "block"
-        // document.getElementById("register").style.display = "block"
-        // let x = document.getElementsByClassName('message-err');
-        // for (let i = 0; i < x.length; i++) {
-        //     x[i].style.display = "block"
-        // }
     }
 </script>
 </body>

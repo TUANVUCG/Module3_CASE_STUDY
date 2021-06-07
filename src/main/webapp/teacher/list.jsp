@@ -25,6 +25,7 @@
             padding-left: 30px;
             border-radius: 5px;
             outline: none;
+            border-color: #757575;
         }
 
         a {
@@ -56,14 +57,17 @@
         .card-heading {
             display: inline-block;
             left: 0;
-            font-size: 36px;
+            font-size: 30px;
+            color: rgb(9,77,177);
         }
 
         #card-list {
             padding-left: 0;
             list-style: none;
         }
-
+        #modal-edit{
+            display: none;
+        }
         .card-item {
             display: flex;
             justify-content: space-between;
@@ -78,193 +82,211 @@
             display: flex;
             justify-content: space-between;
         }
-
+        .navbar {
+            border-radius: 3px;
+        }
         .button {
             background-color: rgb(13, 110, 253);
             color: white;
             width: 124px;
         }
+        #form-create {
+            display: none;
+        }
+        .text-nav {
+            font-size: 1.4rem;
+        }
+        .btn-outline-success {
+            color: rgb(13,110,253);
+        }
+
     </style>
 </head>
 <body>
 <div>
     <div class="main">
         <nav class="navbar navbar-dark bg-primary">
-            <a href="/index.jsp">Trang chủ</a>
-            <a href="/teachers">Danh sách giáo viên</a>
-            <a href="/students">Danh sách học sinh</a>
+            <a class="text-nav" href="/teachers">Teacher list</a>
+            <a class="text-nav" href="/students">Student list</a>
             <form class="d-flex">
                 <input name="find" type="search" placeholder="Name" class="form-control me-2" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit" style="background-color: white">
                     SEARCH
                 </button>
             </form>
+            <a class="text-nav" href="/index.jsp">Log out</a>
         </nav>
-        <button id="create" name="create" type="submit" onclick="openFormCreate(this.id)" class="button">
-            ADD
-        </button>
-        <table class="table table-striped">
-            <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>ADDRESS</th>
-                <th></th>
+        <div style="margin-top: 50px">
+            <div style="text-align: center;margin-bottom: 50px">
+                <h1 style="color: rgb(13,110,253)">TEACHER LIST</h1>
+            </div>
+            <button id="create" name="create" type="submit" onclick="openFormCreate(this.id)" class="button">
+                ADD
+            </button>
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>ADDRESS</th>
+                    <th></th>
+                    <c:forEach items="${teachers}" var="teacher">
+                <tr>
+                    <td onclick="openView(${teacher.id})"><c:out value="${teacher.id}"></c:out></td>
+                    <td onclick="openView(${teacher.id})"><c:out value="${teacher.name}"></c:out></td>
+                    <td onclick="openView(${teacher.id})"><c:out value="${teacher.address}"></c:out></td>
+                    <td>
+                        <button name="id" class="button">
+                            <a href="/teachers?action=delete&id=${teacher.id}">DELETE</a>
+                        </button>
+                    </td>
+                </tr>
+
+                </c:forEach>
                 <c:forEach items="${teachers}" var="teacher">
-            <tr>
-                <td onclick="openView(${teacher.id})"><c:out value="${teacher.id}"></c:out></td>
-                <td onclick="openView(${teacher.id})"><c:out value="${teacher.name}"></c:out></td>
-                <td onclick="openView(${teacher.id})"><c:out value="${teacher.address}"></c:out></td>
-                <td>
-                    <button name="id" class="button">
-                        <a href="/teachers?action=delete&id=${teacher.id}">DELETE</a>
-                    </button>
-                </td>
-            </tr>
+                    <div style="display: none" class="modal" id="<c:out value="${teacher.id}"></c:out>">
 
-            </c:forEach>
-            <c:forEach items="${teachers}" var="teacher">
-                <div style="display: none" class="modal" id="<c:out value="${teacher.id}"></c:out>">
+                        <div class="modal__overlay" onclick="openView(${teacher.id})">
 
-                    <div class="modal__overlay" onclick="openView(${teacher.id})">
-
-                    </div>
-
-                    <div class="modal__body" style="width: 500px;height: 70vh">
-
-                        <div class="card" style="width: 30rem;">
-                            <img class="card-img-top" style="width: 300px;height: 20vh;display: block;margin: 0 auto"
-                                 id="img-${teacher.id}"
-                                 src="https://i.pinimg.com/236x/16/b2/e2/16b2e2579118bf6fba3b56523583117f.jpg"
-                                 alt="Avatar">
-                            <div class="card-body" style="text-align: center">
-                                <ul id="card-list">
-                                    <li class="card-item">
-                                        <h1 class="card-heading">ID</h1>
-                                        <span class="card-text"><c:out value="${teacher.id}"></c:out></span>
-                                    </li>
-                                    <li class="card-item">
-                                        <h1 class="card-heading">NAME</h1>
-                                        <span class="card-text" id="name-${teacher.id}">
-                                        <c:out value="${teacher.name}"></c:out></span>
-                                    </li>
-                                    <li class="card-item">
-                                        <h1 class="card-heading">EMAIL</h1>
-                                        <span class="card-text" id="email-${teacher.id}">
-                                        <c:out value="${teacher.email}"></c:out>
-                                    </span>
-                                    </li>
-                                    <li class="card-item">
-                                        <h1 class="card-heading">ADDRESS</h1>
-                                        <span class="card-text" id="address-${teacher.id}">
-                                        <c:out value="${teacher.address}"></c:out>
-                                    </span>
-                                    </li>
-                                    <li class="card-item">
-                                        <h1 class="card-heading">PHONE</h1>
-                                        <span class="card-text" id="phone-${teacher.id}">
-                                        <c:out value="${teacher.phoneNumber}"></c:out>
-                                </span>
-                                    </li>
-                                    <li class="card-item">
-                                        <h1 class="card-heading">DATE</h1>
-                                        <span class="card-text" id="date-${teacher.id}">
-                                        <c:out value="${teacher.dateOfBirth}"></c:out>
-                                    </span>
-                                    </li>
-                                </ul>
-                                <button type="submit" class="button" onclick="openFormEdit(${teacher.id})">
-                                    Edit
-                                </button>
-                            </div>
                         </div>
 
+                        <div class="modal__body" style="width: 500px;height: 70vh">
+
+                            <div class="card" style="width: 30rem;">
+                                <img class="card-img-top" style="width: 150px;height: 150px;display: block;margin: 0 auto;border-radius: 50%"
+                                     id="img-${teacher.id}"
+                                     src="${teacher.urlImg}"
+                                     alt="Avatar">
+                                <div class="card-body" style="text-align: center">
+                                    <ul id="card-list">
+                                        <li class="card-item">
+                                            <h1 class="card-heading">ID</h1>
+                                            <span class="card-text"><c:out value="${teacher.id}"></c:out></span>
+                                        </li>
+                                        <li class="card-item">
+                                            <h1 class="card-heading">NAME</h1>
+                                            <span class="card-text" id="name-${teacher.id}">
+                                        <c:out value="${teacher.name}"></c:out></span>
+                                        </li>
+                                        <li class="card-item">
+                                            <h1 class="card-heading">EMAIL</h1>
+                                            <span class="card-text" id="email-${teacher.id}">
+                                        <c:out value="${teacher.email}"></c:out>
+                                    </span>
+                                        </li>
+                                        <li class="card-item">
+                                            <h1 class="card-heading">ADDRESS</h1>
+                                            <span class="card-text" id="address-${teacher.id}">
+                                        <c:out value="${teacher.address}"></c:out>
+                                    </span>
+                                        </li>
+                                        <li class="card-item">
+                                            <h1 class="card-heading">PHONE</h1>
+                                            <span class="card-text" id="phone-${teacher.id}">
+                                        <c:out value="${teacher.phoneNumber}"></c:out>
+                                </span>
+                                        </li>
+                                        <li class="card-item">
+                                            <h1 class="card-heading">DATE</h1>
+                                            <span class="card-text" id="date-${teacher.id}">
+                                        <c:out value="${teacher.dateOfBirth}"></c:out>
+                                    </span>
+                                        </li>
+                                    </ul>
+                                    <button type="submit" class="button" onclick="openFormEdit(${teacher.id})">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+                </c:forEach>
+            </table>
+            <div style="display: ${display}" class="modal" id="form-create">
+
+                <div class="modal__overlay" onclick="openView('form-create')">
+
                 </div>
-            </c:forEach>
-        </table>
-        <div style="display: none" class="modal" id="form-create">
 
-            <div class="modal__overlay" onclick="openView('form-create')">
+                <div class="modal__body" style="width: 600px;height: 80vh">
+                    <form method="post" style="border-radius: 10px" action="/teachers?action=create"
+                          class="form-center">
+                        <h1 class="card-heading" >FORM CREATE</h1>
+                        <div class="input-create">
+                            <h1 class="card-heading">NAME</h1>
+                            <input class="input" name="name" type="text" placeholder="Name <c:out value="${message}"></c:out> ">
 
-            </div>
-
-            <div class="modal__body" style="width: 600px;height: 80vh">
-                <form method="post" style="" action="/teachers?action=create"
-                      class="form-center">
-                    <h1>FORM CREATE</h1>
-                    <div class="input-create">
-                        <h1 class="card-heading">NAME</h1>
-                        <input class="input" name="name" type="text" placeholder="Name">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">ADDRESS</h1>
-                        <input class="input" name="address" type="text" placeholder="Address">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">EMAIL</h1>
-                        <input class="input" name="email" type="email" placeholder="Email">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">PHONE</h1>
-                        <input class="input" name="phoneNumber" type="number" placeholder="Phone Number">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">DATE</h1>
-                        <input class="input" name="dateOfBirth" type="text" placeholder="Date Of Birth">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">URL IMG</h1>
-                        <input class="input" id="input-url" name="urlImg" type="url" placeholder="IMG">
-                    </div>
-                    <button type="submit" onclick="setUrlImg()" class="button">ADD
-                    </button>
-                </form>
-            </div>
-        </div>
-
-
-        <div style="display: none" class="modal" id="modal-edit">
-
-            <div class="modal__overlay" onclick="openView('modal-edit')">
-
-            </div>
-
-            <div class="modal__body" style="width: 600px;height: 80vh">
-                <form method="post" action="/teachers?action=edit" class="form-center" id="form-edit">
-                    <h1>FORM EDIT</h1>
-                    <div class="input-create">
-                        <h1 class="card-heading">NAME</h1>
-                        <input class="input" id="edit-name" name="name" type="text" placeholder="Name">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">ADDRESS</h1>
-                        <input class="input" id="edit-address" name="address" type="text" placeholder="Address">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">EMAIL</h1>
-                        <input class="input" id="edit-email" name="email" type="email" placeholder="Email">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">PHONE</h1>
-                        <input class="input" id="edit-phone" name="phoneNumber" type="number"
-                               placeholder="Phone Number">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">DATE</h1>
-                        <input class="input" id="edit-date" name="dateOfBirth" type="text" placeholder="Date Of Birth">
-                    </div>
-                    <div class="input-create">
-                        <h1 class="card-heading">URL IMG</h1>
-                        <input class="input" id="edit-url" name="urlImg" type="url" placeholder="IMG">
-                    </div>
-
-                    <a>
-                        <button type="submit" class="button">
-                            Edit
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">ADDRESS</h1>
+                            <input class="input" name="address" type="text" placeholder="Address <c:out value="${message}"></c:out>">
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">EMAIL</h1>
+                            <input class="input" name="email" type="email" placeholder="Email <c:out value="${message}"></c:out>">
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">PHONE</h1>
+                            <input class="input" name="phoneNumber" type="number" placeholder="Phone Number">
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">DATE</h1>
+                            <input class="input" name="dateOfBirth" type="date" placeholder="Date Of Birth">
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">URL IMG</h1>
+                            <input class="input" id="input-url" name="urlImg" type="url" placeholder="IMG">
+                        </div>
+                        <button type="submit" onclick="setUrlImg()" class="button">ADD
                         </button>
-                    </a>
+                    </form>
+                </div>
+            </div>
 
-                </form>
+
+            <div style="display: none" class="modal" id="modal-edit">
+
+                <div class="modal__overlay" onclick="openView('modal-edit')">
+
+                </div>
+
+                <div class="modal__body" style="width: 600px;height: 80vh">
+                    <form method="post" action="/teachers?action=edit" class="form-center" id="form-edit">
+                        <h1 class="card-heading">FORM EDIT</h1>
+                        <div class="input-create">
+                            <h1 class="card-heading">NAME</h1>
+                            <input class="input" id="edit-name" name="name" type="text" placeholder="Name">
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">ADDRESS</h1>
+                            <input class="input" id="edit-address" name="address" type="text" placeholder="Address" >
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">EMAIL</h1>
+                            <input class="input" id="edit-email" name="email" type="email" placeholder="Email">
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">PHONE</h1>
+                            <input class="input" id="edit-phone" name="phoneNumber" type="number"
+                                   placeholder="Phone Number" >
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">DATE</h1>
+                            <input class="input" id="edit-date" name="dateOfBirth" type="text" placeholder="Date Of Birth" >
+                        </div>
+                        <div class="input-create">
+                            <h1 class="card-heading">URL IMG</h1>
+                            <input class="input" id="edit-url" name="urlImg" type="url" placeholder="IMG">
+                        </div>
+
+                        <a>
+                            <button type="submit" class="button">
+                                Edit
+                            </button>
+                        </a>
+
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -392,9 +414,9 @@
 <script>
     function openFormCreate(id) {
         let status = document.getElementById("form-create").style.display
-        if (status == "none" && id == "create") {
+        if ((status == "" || status =="none") && id == "create") {
             document.getElementById("form-create").style.display = "block"
-        } else if (status == "none" && id == "editT") {
+        } else if ((status == "" || status =="none") && id == "editT") {
             document.getElementById("form-create").style.display = "block"
         } else {
             document.getElementById("form-create").style.display = "none"

@@ -33,6 +33,16 @@ public class Teacher {
         this.dateOfBirth = dateOfBirth;
         this.urlImg = urlImg;
     }
+    public Teacher(int id,String name, String address, String email, String phoneNumber, String dateOfBirth,String userId ,String urlImg) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.userId = userId;
+        this.urlImg = urlImg;
+    }
 
     public Teacher(String name, String address, String email, String phoneNumber, String dateOfBirth) {
         this.name = name;

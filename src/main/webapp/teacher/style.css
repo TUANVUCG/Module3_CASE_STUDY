@@ -40,6 +40,9 @@
     align-items: center;
     line-height: 1.6rem;
 }
+.message-err {
+    color: red;
+}
 @keyframes growth {
     from {
         transform: scale(var(--growth-from));

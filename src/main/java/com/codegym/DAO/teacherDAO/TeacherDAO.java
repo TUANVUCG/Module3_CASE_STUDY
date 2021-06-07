@@ -10,7 +10,7 @@ public class TeacherDAO implements ITeacherDAO{
     public static final String SELECT_ALL_TEACHER = "select * from teacher";
     public static final String CREATE_TEACHER = "call createNewTeacher(?,?,?,?,?,?)";
     public static final String REMOVE_TEACHER = "call removeTeacherById(?)";
-    public static final String EDIT_TEACHER = "call editTeacherById(?,?,?,?,?,?)";
+    public static final String EDIT_TEACHER = "call editTeacherById(?,?,?,?,?,?,?)";
     public static final String FIND_TEACHER_BY_NAME = "call findTeacherByName(?)";
 
     @Override
@@ -27,8 +27,9 @@ public class TeacherDAO implements ITeacherDAO{
                 String email = resultSet.getString("email");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String dateOfBirth = resultSet.getString("dateOfBirth");
+                String userId = resultSet.getString("userId");
                 String urlImg = resultSet.getString("Img");
-                teacherList.add(new Teacher(id,name,address,email,phoneNumber,dateOfBirth,urlImg));
+                teacherList.add(new Teacher(id,name,address,email,phoneNumber,dateOfBirth,userId,urlImg));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,6 +96,7 @@ public class TeacherDAO implements ITeacherDAO{
             callableStatement.setString(4,teacher.getEmail());
             callableStatement.setString(5,teacher.getPhoneNumber());
             callableStatement.setString(6,teacher.getDateOfBirth());
+            callableStatement.setString(7,teacher.getUrlImg());
             rowUpdate = callableStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
