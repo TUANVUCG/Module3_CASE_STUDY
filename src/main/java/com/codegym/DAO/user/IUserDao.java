@@ -1,7 +1,11 @@
 package com.codegym.DAO.user;
 
-import java.util.Map;
+import com.codegym.model.user.User;
+
+import java.util.List;
+
 
 public interface IUserDao {
-    Map<String,String> findAccount();
+    List<User> findUser();
+    boolean createUser(User user);
 }

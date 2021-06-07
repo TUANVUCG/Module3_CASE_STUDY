@@ -45,8 +45,8 @@
             <td><c:out value="${student.phoneNumber}"/></td>
             <td><c:out value="${student.dOB}"/></td>
             <td>
-                <button id="submitUpdate" type="button" class="btn btn-primary editT" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                       name="${student.id}" onclick="openFormEdit(this.className,this.name)">
+                <button id="submitUpdate" type="button" class="button btn-primary editT" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        name="${student.id}" onclick="openFormEdit(this.className,this.name)">
                     Update
                 </button>
 

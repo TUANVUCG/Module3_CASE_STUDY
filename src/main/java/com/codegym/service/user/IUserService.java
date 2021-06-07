@@ -1,7 +1,10 @@
 package com.codegym.service.user;
 
-import java.util.Map;
+import com.codegym.model.user.User;
+
+import java.util.List;
 
 public interface IUserService {
-    Map<String,String>findAccount();
+    List<User> findUser();
+    boolean create(User user);
 }
