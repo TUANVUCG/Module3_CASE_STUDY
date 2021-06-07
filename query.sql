@@ -69,8 +69,8 @@ delimiter //
 create procedure createNewStudent(in name_S varchar(50), address_S varchar(50), email_S varchar(50),
                                   phoneNumber_S varchar(50), dateOfBirth_S date, classId_S int)
 begin
-insert into student(name, address, email, phoneNumber, dateOfBirth, classId)
-    value (name_S, address_S, email_S, phoneNumber_S, dateOfBirth_S, classId_S);
+    insert into student(name, address, email, phoneNumber, dateOfBirth, classId)
+        value (name_S, address_S, email_S, phoneNumber_S, dateOfBirth_S, classId_S);
 end //
 delimiter ;
 
@@ -78,23 +78,24 @@ delimiter //
 create procedure editStudentById(in S_Id int, in name_S varchar(50), address_S varchar(50), email_S varchar(50),
                                  phoneNumber_S varchar(50), dateOfBirth_S date, classId_S int, userId_S int)
 begin
-update student
-set name        = name_S,
-    address     = address_S,
-    email       = email_S,
-    phoneNumber = phoneNumber_S,
-    dateOfBirth = dateOfBirth_S,
-    classId     = classId_S,
-    userId      = userId_S
-where studentId = S_Id;
+    update student
+    set name        = name_S,
+        address     = address_S,
+        email       = email_S,
+        phoneNumber = phoneNumber_S,
+        dateOfBirth = dateOfBirth_S,
+        classId     = classId_S,
+        userId      = userId_S
+    where studentId = S_Id;
 end //
 delimiter ;
 
 delimiter //
 create procedure removeStudentById(in S_Id int)
 begin
-delete from student
-where studentId = S_Id;
+    delete
+    from student
+    where studentId = S_Id;
 end //
 delimiter ;
 
@@ -128,7 +129,8 @@ delimiter ;
 delimiter //
 create procedure find(IN name_S varchar(50))
 begin
-    select * from student
+    select *
+    from student
     where name like name_S;
 end;
 delimiter ;
@@ -137,8 +139,9 @@ delimiter ;
 delimiter //
 create procedure findStudentName(IN name_S varchar(50))
 begin
-    select * from student
-    where name like name_S ;
+    select *
+    from student
+    where name like name_S;
 end;
 delimiter ;
 
@@ -146,7 +149,8 @@ delimiter ;
 delimiter //
 create procedure removeStudentById(IN S_Id int)
 begin
-    delete from student
+    delete
+    from student
     where studentId = S_Id;
 end;
 delimiter ;
@@ -166,7 +170,8 @@ delimiter ;
 delimiter //
 create procedure find(IN name_S varchar(50))
 begin
-    select * from student
+    select *
+    from student
     where name like name_S;
 end;
 delimiter ;
@@ -175,8 +180,9 @@ delimiter ;
 delimiter //
 create procedure findStudentName(IN name_S varchar(50))
 begin
-    select * from student
-    where name like name_S ;
+    select *
+    from student
+    where name like name_S;
 end;
 delimiter ;
 
@@ -184,7 +190,8 @@ delimiter ;
 delimiter //
 create procedure removeStudentById(IN S_Id int)
 begin
-    delete from student
+    delete
+    from student
     where studentId = S_Id;
 end;
 delimiter ;
@@ -216,21 +223,22 @@ create procedure createNewTeacher(IN name_T varchar(50), IN address_T varchar(50
                                   IN email_T varchar(50), IN phoneNumber_T varchar(50),
                                   IN dateOfBirth_T date, in urlImg varchar(8000))
 begin
-    insert into teacher(name, address, email, phoneNumber, dateOfBirth,Img)
-        value (name_T, address_T, email_T, phoneNumber_T, dateOfBirth_T,urlImg);
+    insert into teacher(name, address, email, phoneNumber, dateOfBirth, Img)
+        value (name_T, address_T, email_T, phoneNumber_T, dateOfBirth_T, urlImg);
 end//
 delimiter ;
 drop procedure createNewTeacher;
-alter table teacher modify column Img varchar(8000);
+alter table teacher
+    modify column Img varchar(8000);
 # edit teacher by id
 delimiter //
 create procedure editTeacherById(IN id int, IN name_T varchar(50), IN address_T varchar(50),
-                                 IN email_T varchar(50), IN phoneNumber_T varchar(50),                                              IN dateOfBirth_T varchar(50))
+                                 IN email_T varchar(50), IN phoneNumber_T varchar(50), IN dateOfBirth_T varchar(50))
 begin
     update teacher
-    set name = name_T,
+    set name        = name_T,
         address= address_T,
-        email = email_T,
+        email       = email_T,
         phoneNumber = phoneNumber_T,
         dateOfBirth = dateOfBirth_T
     where id = teacherId;
@@ -242,7 +250,8 @@ delimiter ;
 delimiter //
 create procedure findTeacherByName(IN name_T varchar(50))
 begin
-    select * from teacher
+    select *
+    from teacher
     where name like name_T;
 end //
 delimiter ;
@@ -257,4 +266,18 @@ end //
 delimiter ;
 
 alter table teacher
-alter Img set default 'https://www.google.com.vn/url?sa=i&url=https%3A%2F%2Fwww.yan.vn%2Fdan-mang-du-trend-thiet-ke-avatar-du-kieu-day-mau-sac-tu-anh-mac-dinh-224509.html&psig=AOvVaw1rtTGpWzR79539jj1BhPcp&ust=1622948381307000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNDQ0oDA__ACFQAAAAAdAAAAABAD'
+    alter Img set default 'https://www.google.com.vn/url?sa=i&url=https%3A%2F%2Fwww.yan.vn%2Fdan-mang-du-trend-thiet-ke-avatar-du-kieu-day-mau-sac-tu-anh-mac-dinh-224509.html&psig=AOvVaw1rtTGpWzR79539jj1BhPcp&ust=1622948381307000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNDQ0oDA__ACFQAAAAAdAAAAABAD';
+
+alter table user
+    add column phoneNumber varchar(100) unique;
+
+use class_mng;
+
+delimiter //
+create procedure createUser(in N_userName varchar(50), N_password varchar(50), N_role varchar(50), N_email varchar(50),
+                            N_phoneNumber varchar(50))
+begin
+    insert into user(userName, password, role, email, phoneNumber)
+        value(N_userName,N_password,N_role,N_email,N_phoneNumber);
+end //
+delimiter ;

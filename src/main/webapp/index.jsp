@@ -1,9 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>$Title$</title>
     <link href="icon/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="teacher/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <style>
     .modal {
@@ -157,10 +159,33 @@
         margin-right: 24px;
     }
 
+    #btn-login {
+        display: inline-block;
+        margin-top: 45vh;
+    }
+
     .auth__form-socials-link-gg {
         color: black;
     }
 
+    .main {
+        text-align: center;
+    }
+
+    .button-form-login {
+        background-color: rgb(40, 39, 129);
+        color: white;
+        height: 60px;
+        border-radius: 10px;
+        width: 200px;
+    }
+
+    .message-err {
+        color: red;
+    }
+    #register {
+        display: none;
+    }
     @keyframes growth {
         from {
             transform: scale(var(--growth-from));
@@ -170,132 +195,172 @@
         }
     }
 </style>
-<body onload="loginErr()" style="background-image: url('https://images.pexels.com/photos/583846/pexels-photo-583846.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');background-size: cover">
-<div id="btn-login">
-    <button id="registration" onclick="openForm(this.id)" class="btn" style="background-color: rgb(40,39,129)">Đăng kí</button>
-    <button id="login" onclick="openForm(this.id)" class="btn" style="background-color: rgb(40,39,129)"> Đăng nhập</button>
-</div>
-<div style="display: none" class="modal" id="modal">
-    <div class="modal__overlay" onclick="closeForm('modal')">
-
+<body onload="loginErr('${form}')"
+      style="background-image: url('https://images.pexels.com/photos/583846/pexels-photo-583846.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');background-size: cover">
+<div class="main">
+    <div id="btn-login" class="animate__animated animate__backInDown">
+        <button id="registration" onclick="openForm(this.id)" class="button button-form-login">Đăng
+            kí
+        </button>
+        <button id="login" onclick="openForm(this.id)" class="button button-form-login"> Đăng nhập
+        </button>
     </div>
+    <div style="display: none" class="modal" id="modal">
+        <div class="modal__overlay" onclick="closeForm('modal')">
 
-    <div class="modal__body" style="width: 500px;height: 70vh">
-
-        <!-- Register -->
-        <form method="post" action="Register">
-            <div class="auth__form" id="register" style="display: none">
-
-                <div class="auth__form__header">
-
-                    <h3 class="auth__form__heading">Đăng kí</h3>
-                    <span class="auth__form__switch-btn" onclick="switchForm('login')">Đăng nhập</span>
-
-                </div>
-
-                <div class="auth__form-group">
-
-                    <input type="text" placeholder="Email của bạn" class="auth__form-input">
-
-                </div>
-
-                <div class="auth__form-group">
-
-                    <input type="password" placeholder="Mật khẩu của bạn" class="auth__form-input">
-
-                </div>
-
-                <div class="auth__form-group">
-
-                    <input type="password" placeholder="Nhập lại mật khẩu" class="auth__form-input">
-
-                </div>
-
-                <div class="auth__form-policy">
-
-                    <p class="auth__form-policy-text">
-                        Bằng việc đăng kí, bạn đã đồng ý với Việt Nam Tour về
-                        <a href="#" class="auth__form-policy-text--primary">Điều khoản dịch vụ</a> &
-                        <a href="#" class="auth__form-policy-text--primary">Chính sách bảo mật</a>
-                    </p>
-
-                </div>
-                <div class="auth__form-controls">
-
-                    <button class="btn auth__form-btn auth__form-btn--hover" onclick="closeForm('modal')">TRỞ LẠI
-                    </button>
-                    <button class="btn btn--primary auth__form-btn">ĐĂNG KÍ</button>
-
-                </div>
-
-                <div class="auth__form-socials">
-
-                    <a href="#" class="btn auth__form-socials-link-fb">
-                        <i class="fab fa-facebook"></i>
-                        <span>Facebook</span>
-                    </a>
-
-                    <a href="#" class="btn auth__form-socials-link-gg">
-                        <i class="fab fa-google"></i>
-                        <span>Google</span>
-                    </a>
-
-                </div>
-            </div>
-        </form>
-        <div class="auth__form" id="logins" style="display: none">
-
-            <form method="post" action="users?action=login" id="form-login">
-                <div class="auth__form__header">
-
-                    <h3 class="auth__form__heading">Đăng nhập</h3>
-                    <span id="switchRegister" class="auth__form__switch-btn" onclick="switchForm(this.id)">Đăng Kí</span>
-
-                </div>
-
-                <div class="auth__form-group">
-
-                    <input type="text" name="account" placeholder="Email của bạn" class="auth__form-input">
-                    <span style="color: red" id="account-err" >${message}</span>
-                </div>
-
-                <div class="auth__form-group">
-
-                    <input type="password" name="password" placeholder="Mật khẩu của bạn" class="auth__form-input">
-                    <span style="color: red" id="password-err" >${message2}</span>
-                </div>
-
-                <div class="auth__form-help">
-
-                    <a href="#" class="auth__form-help-link auth__form-help-link--separate">
-                        Quên mật khẩu
-                    </a>
-
-                    <a href="#" class="auth__form-help-link">
-                        Cần trợ giúp?
-                    </a>
-
-                </div>
-
-                <div class="auth__form-controls">
-                    <button class="btn auth__form-btn auth__form-btn--hover" onclick="closeForm('modal')">TRỞ LẠI</button>
-                    <button class="btn btn--primary auth__form-btn" type="submit">ĐĂNG NHẬP</button>
-                </div>
-
-                <div class="auth__form-socials">
-                    <a href="#" class="btn auth__form-socials-link-fb">
-                        <i class="fab fa-facebook"></i>
-                        <span>Facebook</span>
-                    </a>
-                    <a href="#" class="btn auth__form-socials-link-gg">
-                        <i class="fab fa-google"></i>
-                        <span>Google</span>
-                    </a>
-                </div>
-            </form>
         </div>
-    </div>
 
+        <div class="modal__body" style="width: 500px;height: 70vh">
+
+            <!-- Register -->
+
+                <div class="auth__form" id="register" >
+                    <form method="post" action="users?action=registration" id="form-registration">
+                    <div class="auth__form__header">
+
+                        <h3 class="auth__form__heading">Đăng kí</h3>
+                        <span class="auth__form__switch-btn" onclick="switchForm('login')">Đăng nhập</span>
+
+                    </div>
+
+                    <div class="auth__form-group">
+
+                        <input name="account" type="text" placeholder="Tài khoản của bạn" class="auth__form-input">
+                        <span class="message-err"><c:out value="${message3}"></c:out></span>
+                    </div>
+
+                    <div class="auth__form-group">
+
+                        <input name="password" type="password" placeholder="Mật khẩu của bạn" class="auth__form-input">
+                    </div>
+
+                    <div class="auth__form-group">
+
+                        <input name="re-password" type="password" placeholder="Nhập lại mật khẩu"
+                               class="auth__form-input">
+                        <span class="message-err"><c:out value="${message4}"></c:out></span>
+                    </div>
+                    <div class="auth__form-group">
+
+                        <input name="email" type="email" placeholder="Email" class="auth__form-input">
+                        <span class="message-err"><c:out value="${message5}"></c:out></span>
+                    </div>
+                    <div class="auth__form-group">
+
+                        <input name="phone" type="number" placeholder="Phone Number" class="auth__form-input">
+                        <span class="message-err"><c:out value="${message6}"></c:out></span>
+                    </div>
+                    <div class="auth__form-group"
+                         style="margin-top: 20px;display: flex;align-items: center;justify-content: space-between">
+                        <h2 style="margin:0; display: inline-block;color: black;font-weight: 400">Bạn là ?</h2>
+                        <div style="display: flex;align-items: center">
+                            <input name="role" type="radio" value="teacher" id="role-teacher"
+                                   style="width: 20px;height: 20px">
+                            <label for="role-teacher"
+                                   style="color: black;font-weight: 400;font-size: 16px">Teacher</label>
+                        </div>
+                        <div style="display: flex;align-items: center">
+                            <input name="role" type="radio" value="student" id="role-student"
+                                   style="width: 20px;height: 20px;">
+                            <label for="role-student"
+                                   style="color: black;font-weight: 400;font-size: 16px">Student</label>
+                        </div>
+                    </div>
+
+                    <div class="auth__form-policy">
+
+                        <p class="auth__form-policy-text">
+                            Bằng việc đăng kí, bạn đã đồng ý với Việt Nam Tour về
+                            <a href="#" class="auth__form-policy-text--primary">Điều khoản dịch vụ</a> &
+                            <a href="#" class="auth__form-policy-text--primary">Chính sách bảo mật</a>
+                        </p>
+
+                    </div>
+                    <div class="auth__form-controls" style="margin-top: 20px">
+
+                    <span class="button auth__form-btn auth__form-btn--hover" type="button"
+                          onclick="closeForm('modal')">TRỞ LẠI
+                    </span>
+                        <button class="button btn--primary auth__form-btn">ĐĂNG KÍ</button>
+
+                    </div>
+
+                    <div class="auth__form-socials">
+
+                        <a href="#" class="button auth__form-socials-link-fb" style="width: 200px;height: 40px">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook</span>
+                        </a>
+
+                        <a href="#" class="button auth__form-socials-link-gg"
+                           style="width: 200px;height: 40px; background-color: rgb(245,61,45)">
+                            <i class="fab fa-google"></i>
+                            <span>Google</span>
+                        </a>
+
+                    </div>
+                    </form>
+                </div>
+
+
+            <div class="auth__form" id="logins" style="display: none">
+
+                <form method="post" action="users?action=login" id="form-login">
+                    <div class="auth__form__header">
+
+                        <h3 class="auth__form__heading">Đăng nhập</h3>
+                        <span id="switchRegister" class="auth__form__switch-btn"
+                              onclick="switchForm(this.id)">Đăng Kí</span>
+
+                    </div>
+
+                    <div class="auth__form-group">
+
+                        <input type="text" name="account" placeholder="Email của bạn" class="auth__form-input">
+                        <span class="message-err" id="account-err">${message}</span>
+                    </div>
+
+                    <div class="auth__form-group">
+
+                        <input type="password" name="password" placeholder="Mật khẩu của bạn" class="auth__form-input">
+                        <span class="message-err" id="password-err">${message2}</span>
+                    </div>
+
+                    <div class="auth__form-help">
+
+                        <a href=https://www.facebook.com/messages/t/100006586149194"
+                           class="auth__form-help-link auth__form-help-link--separate">
+                            Quên mật khẩu
+                        </a>
+
+                        <a href="https://www.facebook.com/messages/t/100006586149194" class="auth__form-help-link">
+                            Cần trợ giúp?
+                        </a>
+
+                    </div>
+
+                    <div class="auth__form-controls">
+                    <span class="button auth__form-btn auth__form-btn--hover"
+                          onclick="closeForm('modal')">TRỞ LẠI</span>
+                        <button class="button btn--primary auth__form-btn" type="submit">ĐĂNG NHẬP</button>
+                    </div>
+
+                    <div class="auth__form-socials">
+                        <a href="#" class="button auth__form-socials-link-fb" style="width: 200px;height: 40px;">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="#" class="button auth__form-socials-link-gg"
+                           style="width: 200px;height: 40px; background-color: rgb(245,61,45)">
+                            <i class="fab fa-google"></i>
+                            <span>Google</span>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 </body>
@@ -326,6 +391,7 @@
             document.getElementById("register").style.display = "none"
             document.getElementById("btn-login").style.display = "block"
         }
+
     }
 
     function switchForm(id) {
@@ -337,15 +403,22 @@
             document.getElementById("logins").style.display = "block"
         }
     }
-    function loginErr(){
-        let status = document.getElementById("account-err").innerText;
-        let status2 = document.getElementById("password-err").innerText;
-        if (status == "Account does not exist" || status2 == "Incorrect password") {
+
+    function loginErr(form) {
+        if (form == "logins"){
             document.getElementById("modal").style.display = "block"
             document.getElementById("logins").style.display = "block"
+        } else if(form == "register"){
+            document.getElementById("modal").style.display = "block"
+            document.getElementById("register").style.display = "block"
         }
+        // document.getElementById("modal").style.display = "block"
+        // document.getElementById("register").style.display = "block"
+        // let x = document.getElementsByClassName('message-err');
+        // for (let i = 0; i < x.length; i++) {
+        //     x[i].style.display = "block"
+        // }
     }
 </script>
-
 </body>
 </html>
